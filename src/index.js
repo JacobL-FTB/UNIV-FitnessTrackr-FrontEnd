@@ -13,6 +13,7 @@ import {
 const Main = () => {
   const [userData, setUserData] = useState(null);
   const [token, setToken] = useState("");
+  const [error, setError] = useState("");
 
   return (
     <>
@@ -34,10 +35,20 @@ const Main = () => {
         </Route>
 
         <Route path="/register">
-          <Login_Register action="register" setToken={setToken} />
+          <Login_Register
+            action="register"
+            setToken={setToken}
+            error={error}
+            setError={setError}
+          />
         </Route>
         <Route path="/login">
-          <Login_Register action="login" setToken={setToken} />
+          <Login_Register
+            action="login"
+            setToken={setToken}
+            error={error}
+            setError={setError}
+          />
         </Route>
         <Route path="/my-routines">
           <My_Routines />
