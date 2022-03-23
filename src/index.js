@@ -8,6 +8,7 @@ import {
   My_Routines,
   Routines,
   Login_Register,
+  CreateRoutine,
 } from './Components/index';
 
 const Main = () => {
