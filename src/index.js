@@ -13,6 +13,7 @@ import {
 const Main = () => {
   const [userData, setUserData] = useState(null);
   const [token, setToken] = useState("");
+  const [activities, setActivities] = useState([])
 
   return (
     <>
