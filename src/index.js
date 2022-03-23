@@ -39,7 +39,7 @@ const Main = () => {
           />
         </Route>
         <Route path="/Create-Routine">
-          <CreateRoutine />
+          <CreateRoutine userData={userData} />
         </Route>
         <Route path="/register">
           <Login_Register
