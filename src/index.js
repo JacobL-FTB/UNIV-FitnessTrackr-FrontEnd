@@ -1,6 +1,6 @@
-import { BrowserRouter, Route } from "react-router-dom";
-import ReactDOM from "react-dom";
-import React, { useEffect, useState } from "react";
+import { BrowserRouter, Route } from 'react-router-dom';
+import ReactDOM from 'react-dom';
+import React, { useState } from 'react';
 import {
   Activities,
   Home,
@@ -8,12 +8,13 @@ import {
   My_Routines,
   Routines,
   Login_Register,
-} from "./Components/index";
+} from './Components/index';
 
 const Main = () => {
   const [userData, setUserData] = useState(null);
-  const [token, setToken] = useState("");
-  const [error, setError] = useState("");
+  const [token, setToken] = useState('');
+  const [routines, setRoutines] = useState([]);
+  const [error, setError] = useState('');
 
   return (
     <>
@@ -31,9 +32,15 @@ const Main = () => {
           <Activities />
         </Route>
         <Route path="/routines">
-          <Routines />
+          <Routines
+            userData={userData}
+            routines={routines}
+            setRoutines={setRoutines}
+          />
         </Route>
-
+        <Route path="/Create-Routine">
+          <CreateRoutine userData={userData} />
+        </Route>
         <Route path="/register">
           <Login_Register
             action="register"
@@ -58,7 +65,7 @@ const Main = () => {
   );
 };
 
-const root = document.getElementById("root");
+const root = document.getElementById('root');
 ReactDOM.render(
   <BrowserRouter>
     <Main />
