@@ -1,21 +1,56 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 
 const BASE_URL = 'https://fitnesstrac-kr.herokuapp.com/api/';
 const API_LOGIN = 'http://fitnesstrac-kr.herokuapp.com/api/users/login';
 const API_REGISTER = 'http://fitnesstrac-kr.herokuapp.com/api/users/register';
+const API_USER = 'http://fitnesstrac-kr.herokuapp.com/api/users/me';
 
-const Login_Register = ({ setToken, action, error, setError, setUserData }) => {
+const Login_Register = ({
+  token,
+  setToken,
+  action,
+  error,
+  setError,
+  setUserData,
+}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
+
   const isLogin = action === 'login';
   const title = isLogin ? 'Login' : 'Register';
   const oppositeTitle = isLogin ? 'Register' : 'Login';
   const oppositeAction = isLogin ? 'register' : 'login';
   const actionURL = isLogin ? API_LOGIN : API_REGISTER;
   const history = useHistory();
+
+  // const fetchUser = async () => {
+  //   const lsToken = localStorage.getItem("token");
+  //   console.log(lsToken);
+  //   if (lsToken) {
+  //     setToken(lsToken);
+  //   }
+  //   try {
+  //     const response = await fetch(`${API_USER}`, {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `Bearer ${lsToken}`,
+  //       },
+  //     });
+  //     const info = await response.json();
+  //     console.log(info);
+  //     setUserData(info.user);
+  //     // setUsername(info.user.username);
+  //   } catch (error) {
+  //     throw error;
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   fetchUser();
+  // }, [token]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -41,7 +76,6 @@ const Login_Register = ({ setToken, action, error, setError, setUserData }) => {
         }
         setToken(info.token);
         localStorage.setItem('token', info.token);
-        setUserData(info.user);
         history.push('/');
       } catch (error) {
         throw error;
