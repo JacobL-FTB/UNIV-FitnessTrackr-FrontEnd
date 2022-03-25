@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 const BASE_URL = 'https://fitnesstrac-kr.herokuapp.com/api/';
 const API_LOGIN = 'http://fitnesstrac-kr.herokuapp.com/api/users/login';
 const API_REGISTER = 'http://fitnesstrac-kr.herokuapp.com/api/users/register';
-const API_USER = 'http://fitnesstrac-kr.herokuapp.com/api/users/me';
 
 const Login_Register = ({
   token,

@@ -12,7 +12,8 @@ import {
   AddActivity,
   EditRoutine,
 } from './Components/index';
-//
+
+const API_USER = 'http://fitnesstrac-kr.herokuapp.com/api/users/me';
 
 const Main = () => {
   const [userData, setUserData] = useState(null);
@@ -34,7 +35,6 @@ const Main = () => {
         },
       });
       const info = await response.json();
-      console.log(info);
       setUserData(info);
 
       // setUsername(info.data.username);
@@ -42,8 +42,6 @@ const Main = () => {
       throw error;
     }
   };
-
-  console.log(userData);
 
   useEffect(() => {
     fetchUser();
