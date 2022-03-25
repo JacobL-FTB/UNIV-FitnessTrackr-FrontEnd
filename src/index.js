@@ -8,7 +8,9 @@ import {
   My_Routines,
   Routines,
   Login_Register,
-  CreateRoutine, //
+  CreateRoutine,
+  AddActivity,
+  EditRoutine,
 } from './Components/index';
 
 const Main = () => {
@@ -16,6 +18,7 @@ const Main = () => {
   const [token, setToken] = useState('');
   const [routines, setRoutines] = useState([]);
   const [error, setError] = useState('');
+  const [routineData, setRoutineData] = useState({});
 
   return (
     <>
@@ -37,10 +40,17 @@ const Main = () => {
             userData={userData}
             routines={routines}
             setRoutines={setRoutines}
+            setRoutineData={setRoutineData}
           />
         </Route>
         <Route path="/Create-Routine">
           <CreateRoutine userData={userData} />
+        </Route>
+        <Route path="/Add-Activity">
+          <AddActivity />
+        </Route>
+        <Route path="/Edit-Routine">
+          <EditRoutine />
         </Route>
         <Route path="/register">
           <Login_Register
@@ -56,6 +66,7 @@ const Main = () => {
             setToken={setToken}
             error={error}
             setError={setError}
+            setUserData={setUserData}
           />
         </Route>
         <Route path="/my-routines">

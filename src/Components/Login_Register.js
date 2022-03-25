@@ -6,7 +6,7 @@ const BASE_URL = 'https://fitnesstrac-kr.herokuapp.com/api/';
 const API_LOGIN = 'http://fitnesstrac-kr.herokuapp.com/api/users/login';
 const API_REGISTER = 'http://fitnesstrac-kr.herokuapp.com/api/users/register';
 
-const Login_Register = ({ setToken, action, error, setError }) => {
+const Login_Register = ({ setToken, action, error, setError, setUserData }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
@@ -41,6 +41,7 @@ const Login_Register = ({ setToken, action, error, setError }) => {
         }
         setToken(info.token);
         localStorage.setItem('token', info.token);
+        setUserData(info.user);
         history.push('/');
       } catch (error) {
         throw error;
