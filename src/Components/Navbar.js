@@ -9,6 +9,9 @@ const Navbar = ({ setToken, userData, setUserData }) => {
       <Link className="link" to="/activities">
         Activities
       </Link>
+      <Link className="link" to="/routines">
+        Routines
+      </Link>
       {userData ? (
         <Link className="link" to="/my-routines">
           My Routines
