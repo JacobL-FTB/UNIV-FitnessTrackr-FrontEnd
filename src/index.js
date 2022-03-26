@@ -35,14 +35,10 @@ const Main = () => {
       const info = await response.json();
       console.log(info);
       setUserData(info);
-
-      // setUsername(info.data.username);
     } catch (error) {
       throw error;
     }
   };
-
-  console.log(userData);
 
   useEffect(() => {
     fetchUser();
