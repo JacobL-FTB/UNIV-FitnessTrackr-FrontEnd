@@ -1,5 +1,5 @@
 * {
-  font-family: "Nunito", sans-serif;
+  font-family: 'Nunito', sans-serif;
   margin: 0;
 }
 
@@ -9,4 +9,43 @@ body > div {
   width: 100vw;
   display: flex;
   flex-direction: column;
+}
+
+.routineView {
+  background-color: rgb(211, 211, 211);
+  margin: 10px;
+  padding: 10px;
+}
+
+.activity {
+  margin: 10px;
+  background-color: rgb(190, 190, 190);
+  padding: 5px;
+}
+
+.routineCreator,
+.routineGoal {
+  color: rgb(0, 0, 0);
+  font-style: italic;
+  margin: 5px;
+}
+
+#navbar {
+  background-color: rgb(156, 147, 240);
+  padding: 10px;
+}
+#navbar .link {
+  padding: 10px;
+  background-color: rgb(183, 178, 233);
+  border-radius: 10%;
+  margin: 5px;
+  font-size: large;
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+}
+.button {
+  padding: 3px;
+  margin: 15px;
+  background-color: lightgray;
+  border-radius: 10%;
 }

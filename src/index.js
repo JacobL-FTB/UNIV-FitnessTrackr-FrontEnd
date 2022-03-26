@@ -8,7 +8,9 @@ import {
   My_Routines,
   Routines,
   Login_Register,
-  CreateRoutine, //
+  CreateRoutine,
+  AddActivity,
+  EditRoutine,
 } from "./Components/index";
 
 const API_USER = "http://fitnesstrac-kr.herokuapp.com/api/users/me";
@@ -18,7 +20,10 @@ const Main = () => {
   const [token, setToken] = useState("");
   const [routines, setRoutines] = useState([]);
   const [error, setError] = useState("");
+  const [routineData, setRoutineData] = useState({});
   const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
+  const [goal, setGoal] = useState("");
 
   const fetchUser = async () => {
     const lsToken = localStorage.getItem("token");
@@ -33,15 +38,24 @@ const Main = () => {
         },
       });
       const info = await response.json();
-      console.log(info);
       setUserData(info);
+      setUsername(info.username);
     } catch (error) {
       throw error;
     }
   };
+  // console.log(userData);
+
+  async function fetchRoutines() {
+    const response = await fetch(
+      "http://fitnesstrac-kr.herokuapp.com/api/routines"
+    );
+    setRoutines(await response.json());
+  }
 
   useEffect(() => {
     fetchUser();
+    fetchRoutines();
   }, [token]);
 
   return (
@@ -69,10 +83,17 @@ const Main = () => {
             userData={userData}
             routines={routines}
             setRoutines={setRoutines}
+            setRoutineData={setRoutineData}
           />
         </Route>
         <Route path="/Create-Routine">
           <CreateRoutine userData={userData} />
+        </Route>
+        <Route path="/Add-Activity">
+          <AddActivity />
+        </Route>
+        <Route path="/Edit-Routine">
+          <EditRoutine />
         </Route>
         <Route path="/register">
           <Login_Register
@@ -90,10 +111,37 @@ const Main = () => {
             setToken={setToken}
             error={error}
             setError={setError}
+            setUserData={setUserData}
           />
         </Route>
         <Route path="/my-routines">
-          <My_Routines />
+          <My_Routines
+            token={token}
+            setError={setError}
+            error={error}
+            userData={userData}
+            routines={routines}
+            setRoutines={setRoutines}
+            fetchRoutines={fetchRoutines}
+            username={username}
+            name={name}
+            goal={goal}
+            setName={setName}
+            setGoal={setGoal}
+          />
+        </Route>
+        <Route path="/routines/:routineId">
+          <EditRoutine
+            routines={routines}
+            name={name}
+            goal={goal}
+            setName={setName}
+            setGoal={setGoal}
+            token={token}
+            error={error}
+            setError={setError}
+            fetchRoutines={fetchRoutines}
+          />
         </Route>
       </div>
     </>
