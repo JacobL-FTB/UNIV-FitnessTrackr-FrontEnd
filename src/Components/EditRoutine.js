@@ -57,6 +57,7 @@ const EditRoutine = ({
       }),
     });
     const info2 = await response2.json();
+    console.log;
     if (info2.error) {
       return setError(info2.error.message);
     }
