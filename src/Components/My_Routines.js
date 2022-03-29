@@ -1,7 +1,4 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useHistory } from "react-router-dom";
-import { useEffect } from "react/cjs/react.production.min";
 
 const API_ROUTINES = "https://fitnesstrac-kr.herokuapp.com/api/routines";
 
@@ -106,7 +103,7 @@ const MyRoutines = ({
         {myRoutinesArr.map((routine) => {
           return routine.isPublic ? (
             <div className="post-results" key={routine.id}>
-              <Link className="post-links" to={`/posts/post/${routine.id}`}>
+              <Link className="post-links" to={`/routines/${routine.id}`}>
                 <h3 className="post-title">{routine.name}</h3>
               </Link>
               <p className="post-info">{routine.goal}</p>
