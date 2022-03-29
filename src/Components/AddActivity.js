@@ -5,23 +5,25 @@ import { unstable_renderSubtreeIntoContainer } from "react-dom/cjs/react-dom.dev
 
 const API_ROUTINES = "https://fitnesstrac-kr.herokuapp.com/api/routines";
 
-const AddActivity = ({ activities, setError }) => {
+const AddActivity = ({ activities, setError, fetchRoutines }) => {
   const [count, setCount] = useState("");
   const [duration, setDuration] = useState("");
   const history = useHistory();
   const id = useParams();
   console.log(id);
+  // const filteredArray = activities.filter(
+  //   (activity) => activity.name === activity
+  // );
+  // console.log(filteredArray);
 
   const [activity, setActivity] = useState("any");
   const [activityId, setActivityId] = useState("");
-  console.log(activity);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(activityId);
     console.log(count, duration);
     console.log(activity);
-    console.log(activity.id);
 
     const response = await fetch(`${API_ROUTINES}/${id.routineId}/activities`, {
       method: "POST",
@@ -30,11 +32,9 @@ const AddActivity = ({ activities, setError }) => {
         // Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
-        post: {
-          activityId: activityId,
-          count,
-          duration,
-        },
+        activityId,
+        count,
+        duration,
       }),
     });
     const info = await response.json();
@@ -54,12 +54,17 @@ const AddActivity = ({ activities, setError }) => {
           value={activity}
           onChange={(event) => {
             setActivity(event.target.value);
-            setActivityId(event.target.id);
+            const filteredArray = activities.filter(
+              (activity) => activity.name === event.target.value
+            );
+            setActivityId(filteredArray[0].id);
+
+            console.log(filteredArray[0].id);
           }}
         >
           <option value="any">Any</option>
           {activities.map((activity) => {
-            console.log(activity);
+            // console.log(activity.id);
             return (
               <>
                 <option key={activity.id} value={activity.name}>
@@ -69,6 +74,21 @@ const AddActivity = ({ activities, setError }) => {
             );
           })}
         </select>
+        {/* <select
+          value={activityId}
+          onChange={(event) => {
+            setActivityId(event.target.value);
+            console.log(event.target.value);
+          }}
+        >
+          {activities.map((activity) => {
+            return (
+              <>
+                <option key={activity.id} value={activity.id}></option>
+              </>
+            );
+          })}
+        </select> */}
       </fieldset>
       <input
         className="input-posts"

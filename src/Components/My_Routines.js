@@ -33,7 +33,7 @@ const MyRoutines = ({
     const info = await response.json();
     console.log(info);
     if (info.error) {
-      return setError(info.error.message);
+      return setError(info.error);
     }
     fetchRoutines();
     setName("");
@@ -62,7 +62,6 @@ const MyRoutines = ({
         },
       });
       const info = await response.json();
-      console.log(info);
     } catch (error) {
       console.error(error);
     }
@@ -108,6 +107,16 @@ const MyRoutines = ({
               </Link>
               <p className="post-info">{routine.goal}</p>
               <h4 className="post-info">By: {routine.creatorName}</h4>
+              {routine.activities &&
+                routine.activities.map((activity) => {
+                  return (
+                    <div key={activity.id}>
+                      <h4>Activity: {activity.name}</h4>
+                      <h4>Count:{activity.count}</h4>
+                      <h4>Duration:{activity.duration}</h4>
+                    </div>
+                  );
+                })}
               <button
                 value={routine.id}
                 onClick={(e) => {

@@ -52,13 +52,15 @@ const Main = () => {
     const response = await fetch(
       "http://fitnesstrac-kr.herokuapp.com/api/routines"
     );
-    setRoutines(await response.json());
+    const info = await response.json();
+    console.log(info);
+    setRoutines(info);
   }
 
   const fetchActivities = async () => {
     const resp = await fetch(`${BASE_URL}/activities`);
     const info = await resp.json();
-    console.log(info);
+    // console.log(info);
     if (resp.error) {
       throw new Error(resp.error);
     }
@@ -109,6 +111,8 @@ const Main = () => {
             activities={activities}
             setActivities={setActivities}
             token={token}
+            setError={setError}
+            fetchRoutines={fetchRoutines}
           />
         </Route>
         <Route path="/register">
