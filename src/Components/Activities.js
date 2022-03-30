@@ -77,6 +77,7 @@ const Activities = ({
       }}
       >
     </input>
+    <button type="submit">Submit Actvity</button>
     </form>
     ):(
       <></>
