@@ -1,21 +1,17 @@
-import { React, useEffect, useState } from 'react';
+import { React, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 const Routines = (props) => {
   const { routines, setRoutines, userData, setRoutineData } = props;
 
   async function fetchRoutines() {
-    const response = await fetch(
-      'http://fitnesstrac-kr.herokuapp.com/api/routines'
-    );
+    const response = await fetch(`${API_ROUTINES}`);
     setRoutines(await response.json());
   }
 
   useEffect(() => {
     fetchRoutines();
   }, []);
-
-  const deleteRoutine = (id) => {};
 
   return (
     <div>
@@ -77,14 +73,6 @@ const Routines = (props) => {
                     >
                       Edit Routine
                     </Link>
-                    <button
-                      className="button"
-                      onClick={() => {
-                        deleteRoutine(routine.id);
-                      }}
-                    >
-                      Delete Routine
-                    </button>
                   </>
                 ) : (
                   <></>
