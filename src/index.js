@@ -13,7 +13,8 @@ import {
   EditRoutine,
 } from './Components/index';
 
-const API_USER = 'http://fitnesstrac-kr.herokuapp.com/api/users/me';
+const API_USER = "http://fitnesstrac-kr.herokuapp.com/api/users/me";
+const BASE_URL = "https://fitnesstrac-kr.herokuapp.com/api";
 
 const Main = () => {
   const [userData, setUserData] = useState(null);
@@ -21,6 +22,10 @@ const Main = () => {
   const [routines, setRoutines] = useState([]);
   const [error, setError] = useState('');
   const [routineData, setRoutineData] = useState({});
+  const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
+  const [goal, setGoal] = useState("");
+  const [activities, setActivities] = useState([]);
 
   const fetchUser = async () => {
     const lsToken = localStorage.getItem('token');
@@ -42,9 +47,31 @@ const Main = () => {
       throw error;
     }
   };
+  // console.log(userData);
+
+  async function fetchRoutines() {
+    const response = await fetch(
+      "http://fitnesstrac-kr.herokuapp.com/api/routines"
+    );
+    const info = await response.json();
+    console.log(info);
+    setRoutines(info);
+  }
+
+  const fetchActivities = async () => {
+    const resp = await fetch(`${BASE_URL}/activities`);
+    const info = await resp.json();
+    // console.log(info);
+    if (resp.error) {
+      throw new Error(resp.error);
+    }
+    setActivities(info);
+  };
 
   useEffect(() => {
     fetchUser();
+    fetchRoutines();
+    fetchActivities();
   }, [token]);
 
   return (
@@ -65,11 +92,13 @@ const Main = () => {
           <Home userData={userData} />
         </Route>
         <Route exact path="/activities">
-          <Activities 
-          userData = {userData}
-          token={token}/>
+          <Activities
+            activities={activities}
+            setActivities={setActivities}
+            fetchActivities={fetchActivities}
+          />
         </Route>
-        <Route path="/routines">
+        <Route exact path="/routines">
           <Routines
             userData={userData}
             routines={routines}
@@ -77,14 +106,15 @@ const Main = () => {
             setRoutineData={setRoutineData}
           />
         </Route>
-        <Route path="/Create-Routine">
-          <CreateRoutine userData={userData} />
-        </Route>
-        <Route path="/Add-Activity">
-          <AddActivity />
-        </Route>
-        <Route path="/Edit-Routine">
-          <EditRoutine />
+
+        <Route path="/routines/:routineId/activities">
+          <AddActivity
+            activities={activities}
+            setActivities={setActivities}
+            token={token}
+            setError={setError}
+            fetchRoutines={fetchRoutines}
+          />
         </Route>
         <Route path="/register">
           <Login_Register
@@ -106,7 +136,36 @@ const Main = () => {
           />
         </Route>
         <Route path="/my-routines">
-          <My_Routines />
+          <My_Routines
+            token={token}
+            setError={setError}
+            error={error}
+            userData={userData}
+            routines={routines}
+            setRoutines={setRoutines}
+            fetchRoutines={fetchRoutines}
+            username={username}
+            name={name}
+            goal={goal}
+            setName={setName}
+            setGoal={setGoal}
+          />
+        </Route>
+        <Route exact path="/routines/:routineId">
+          <EditRoutine
+            routines={routines}
+            name={name}
+            goal={goal}
+            setName={setName}
+            setGoal={setGoal}
+            token={token}
+            error={error}
+            setError={setError}
+            fetchRoutines={fetchRoutines}
+            activities={activities}
+            setActivities={setActivities}
+            setRoutines={setRoutines}
+          />
         </Route>
       </div>
     </>

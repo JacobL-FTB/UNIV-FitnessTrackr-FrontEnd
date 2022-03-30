@@ -1,7 +1,4 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useHistory } from "react-router-dom";
-import { useEffect } from "react/cjs/react.production.min";
 
 const API_ROUTINES = "https://fitnesstrac-kr.herokuapp.com/api/routines";
 
@@ -36,7 +33,7 @@ const MyRoutines = ({
     const info = await response.json();
     console.log(info);
     if (info.error) {
-      return setError(info.error.message);
+      return setError(info.error);
     }
     fetchRoutines();
     setName("");
@@ -65,7 +62,6 @@ const MyRoutines = ({
         },
       });
       const info = await response.json();
-      console.log(info);
     } catch (error) {
       console.error(error);
     }
@@ -106,11 +102,21 @@ const MyRoutines = ({
         {myRoutinesArr.map((routine) => {
           return routine.isPublic ? (
             <div className="post-results" key={routine.id}>
-              <Link className="post-links" to={`/posts/post/${routine.id}`}>
+              <Link className="post-links" to={`/routines/${routine.id}`}>
                 <h3 className="post-title">{routine.name}</h3>
               </Link>
               <p className="post-info">{routine.goal}</p>
               <h4 className="post-info">By: {routine.creatorName}</h4>
+              {routine.activities &&
+                routine.activities.map((activity) => {
+                  return (
+                    <div key={activity.id}>
+                      <h4>Activity: {activity.name}</h4>
+                      <h4>Count:{activity.count}</h4>
+                      <h4>Duration:{activity.duration}</h4>
+                    </div>
+                  );
+                })}
               <button
                 value={routine.id}
                 onClick={(e) => {
