@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { useEffect } from "react";
 
 const API_ROUTINES = "https://fitnesstrac-kr.herokuapp.com/api/routines";
 const API_ROUTINEACTIVITES =
@@ -19,7 +20,14 @@ const MyRoutines = ({
   goal,
   setGoal,
 }) => {
-  // const [routineActivityId, setRoutineActivityId] = useState("");
+  const [routineActivityId, setRoutineActivityId] = useState("");
+  const [count, setCount] = useState("");
+  const [duration, setDuration] = useState("");
+  const myRoutinesArr = routines.filter(
+    (routine) => routine.creatorName === userData.username
+  );
+  console.log(myRoutinesArr);
+  console.log(userData);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,19 +48,12 @@ const MyRoutines = ({
     if (info.error) {
       return setError(info.error);
     }
-    fetchRoutines();
     setName("");
     setGoal("");
+    fetchRoutines();
   };
 
   const lsToken = localStorage.getItem("token");
-  // console.log(routines);
-  console.log(userData);
-
-  const myRoutinesArr = routines.filter(
-    (routine) => routine.creatorName === userData.username
-  );
-  console.log(myRoutinesArr);
 
   const handleDelete = async (routineId) => {
     const filteredArray = routines.filter(
@@ -97,89 +98,142 @@ const MyRoutines = ({
     fetchRoutines();
   };
 
+  const handleUpdate = async (id) => {
+    const response = await fetch(`${API_ROUTINEACTIVITES}/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        count,
+        duration,
+      }),
+    });
+    const info = await response.json();
+    console.log(info);
+    if (info.error) {
+      return setError(info.error.message);
+    }
+    setCount("");
+    setDuration("");
+    fetchRoutines();
+  };
+
   return (
     <>
-      {userData ? <h2>Create New Routine</h2> : <></>}
-      <form className="new-post" onSubmit={handleSubmit}>
-        <input
-          className="input-posts"
-          type="text"
-          required
-          value={name}
-          placeholder="Name"
-          onChange={(e) => {
-            setName(e.target.value);
-          }}
-        ></input>
-        <input
-          className="input-posts"
-          type="text"
-          required
-          value={goal}
-          placeholder="Goal"
-          onChange={(e) => {
-            setGoal(e.target.value);
-          }}
-        ></input>
-        <button type="submit">Submit Routine</button>
-      </form>
-      <p>{error}</p>
-      <h3 id="post-label" className="my-info">
-        My Routines:
-      </h3>
-      <section className="my-messages">
-        {myRoutinesArr.map((routine) => {
-          return routine.isPublic ? (
-            <div className="post-results" key={routine.id}>
-              <Link className="post-links" to={`/routines/${routine.id}`}>
-                <h3 className="post-title">{routine.name}</h3>
-              </Link>
-              <p className="post-info">{routine.goal}</p>
-              <h4 className="post-info">By: {routine.creatorName}</h4>
-              <button
-                value={routine.id}
-                onClick={(e) => {
-                  const id = e.target.value;
-                  handleDelete(id);
-                }}
-              >
-                Delete Routine
-              </button>
-              <Link className="button" to={`/routines/${routine.id}`}>
-                <button>Edit Routine</button>
-              </Link>
-              <Link to={`/routines/${routine.id}/activities`}>
-                Add Activity
-              </Link>
-              {routine.activities &&
-                routine.activities.map((activity) => {
-                  console.log(activity);
-                  return (
-                    <div key={activity.id}>
-                      <h4>Activity: {activity.name}</h4>
-                      <h4>Count:{activity.count}</h4>
-                      <h4>Duration:{activity.duration}</h4>
-                      <button
-                        value={activity.routineActivityId}
-                        onClick={(e) => {
-                          const routineActivityId = e.target.value;
-                          handleActivityDelete(routineActivityId);
-                        }}
-                      >
-                        Delete Activity
-                      </button>
-                      <button>Update Activity</button>
-                    </div>
-                  );
-                })}
+      {userData ? <h2 id="new-routine-heading">Create New Routine</h2> : <></>}
+      <div id="new-routine">
+        <form onSubmit={handleSubmit}>
+          <input
+            className="input-create-routine"
+            type="text"
+            required
+            value={name}
+            placeholder="Name"
+            onChange={(e) => {
+              setName(e.target.value);
+            }}
+          ></input>
+          <input
+            className="input-create-routine"
+            type="text"
+            required
+            value={goal}
+            placeholder="Goal"
+            onChange={(e) => {
+              setGoal(e.target.value);
+            }}
+          ></input>
+          <button className="input-create-routine" type="submit">
+            Submit Routine
+          </button>
+        </form>
+        <p>{error}</p>
+      </div>
+      <h3 id="my-routines-label">My Routines:</h3>
 
-              <hr></hr>
-            </div>
-          ) : (
-            <h1>Hello</h1>
-          );
-        })}
-      </section>
+      {myRoutinesArr.map((routine) => {
+        return routine.isPublic ? (
+          <div className="routines-results" key={routine.id}>
+            {/* <Link to={`/routines/${routine.id}`}> */}
+            <h3 className="routine">Routine Name: {routine.name}</h3>
+            {/* </Link> */}
+            <p className="routine">Goal: {routine.goal}</p>
+            <h4 className="routine">By: {routine.creatorName}</h4>
+            <button
+              className="routine"
+              value={routine.id}
+              onClick={(e) => {
+                const id = e.target.value;
+                handleDelete(id);
+              }}
+            >
+              Delete Routine
+            </button>
+            <Link className="routine" to={`/routines/${routine.id}`}>
+              Update Routine
+            </Link>
+            <Link className="routine" to={`/routines/${routine.id}/activities`}>
+              Add Activity
+            </Link>
+            {routine.activities &&
+              routine.activities.map((activity) => {
+                console.log(activity);
+                return (
+                  <div className="activities-results" key={activity.id}>
+                    <h4 className="activities">
+                      Activity Name: {activity.name}
+                    </h4>
+                    <label className="activities">Count</label>
+                    <input
+                      className="activities"
+                      onChange={(e) => {
+                        setCount(e.target.value);
+                      }}
+                      placeholder={activity.count}
+                      value={count}
+                    ></input>
+                    <label className="activities">Duration</label>
+                    <input
+                      className="activities"
+                      onChange={(e) => {
+                        setDuration(e.target.value);
+                      }}
+                      placeholder={activity.duration}
+                      value={duration}
+                    ></input>
+                    <button
+                      className="activities"
+                      value={activity.routineActivityId}
+                      onClick={(e) => {
+                        const routineActivityId = e.target.value;
+                        handleActivityDelete(routineActivityId);
+                      }}
+                    >
+                      Delete Activity
+                    </button>
+                    <button
+                      className="activities"
+                      type="submit"
+                      value={activity.routineActivityId}
+                      onClick={(e) => {
+                        const routineActivityId = e.target.value;
+                        handleUpdate(routineActivityId);
+                      }}
+                    >
+                      Update Count and Duration
+                    </button>
+                  </div>
+                );
+              })}
+
+            <hr></hr>
+          </div>
+        ) : (
+          <h1>Hello</h1>
+        );
+      })}
     </>
   );
 };

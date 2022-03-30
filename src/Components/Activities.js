@@ -10,33 +10,40 @@ const Activities = ({
   activities,
   setActivities,
   fetchActivities,
+  setError,
+  error,
 }) => {
-  const [activityname, setActivityName] = useState([]);
+  const [activityName, setActivityName] = useState([]);
   const [activityDescription, setActivityDescription] = useState([]);
+
+  const lsToken = localStorage.getItem("token");
 
   //create activity
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-    if (activityname)
-      try {
-        const response = await fetch(
-          "http://fitnesstrac-kr.herokuapp.com/api/activities",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify({
-              name: activityname,
-              description: activityDescription,
-            }),
-          }
-        );
-      } catch (error) {
-        throw error;
-      }
+
+    try {
+      const response = await fetch(
+        "http://fitnesstrac-kr.herokuapp.com/api/activities",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${lsToken}`,
+          },
+          body: JSON.stringify({
+            name: activityName,
+            description: activityDescription,
+          }),
+        }
+      );
+      const info = await response.json();
+      setActivityName("");
+      setActivityDescription("");
+    } catch (error) {
+      throw error;
+    }
   };
 
   //edit activity
@@ -49,7 +56,7 @@ const Activities = ({
         {
           method: "PATCH",
           body: JSON.stringify({
-            name: activityname,
+            name: activityName,
             description: activityDescription,
           }),
         }
@@ -72,7 +79,7 @@ const Activities = ({
           <input
             required
             type="text"
-            value={activityname}
+            value={activityName}
             placeholder="Activity Name"
             onChange={(e) => {
               e.preventDefault();
