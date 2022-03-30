@@ -1,6 +1,6 @@
-import { BrowserRouter, Route } from "react-router-dom";
-import ReactDOM from "react-dom";
-import React, { useState, useEffect } from "react";
+import { BrowserRouter, Route } from 'react-router-dom';
+import ReactDOM from 'react-dom';
+import React, { useState, useEffect } from 'react';
 import {
   Activities,
   Home,
@@ -11,51 +11,40 @@ import {
   CreateRoutine,
   AddActivity,
   EditRoutine,
-} from "./Components/index";
+} from './Components/index';
 
-const API_USER = "http://fitnesstrac-kr.herokuapp.com/api/users/me";
+const API_USER = 'http://fitnesstrac-kr.herokuapp.com/api/users/me';
 
 const Main = () => {
   const [userData, setUserData] = useState(null);
-  const [token, setToken] = useState("");
+  const [token, setToken] = useState('');
   const [routines, setRoutines] = useState([]);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const [routineData, setRoutineData] = useState({});
-  const [username, setUsername] = useState("");
-  const [name, setName] = useState("");
-  const [goal, setGoal] = useState("");
 
   const fetchUser = async () => {
-    const lsToken = localStorage.getItem("token");
+    const lsToken = localStorage.getItem('token');
     if (lsToken) {
       setToken(lsToken);
     }
     try {
       const response = await fetch(`${API_USER}`, {
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
           Authorization: `Bearer ${lsToken}`,
         },
       });
       const info = await response.json();
       setUserData(info);
-      setUsername(info.username);
+
+      // setUsername(info.data.username);
     } catch (error) {
       throw error;
     }
   };
-  // console.log(userData);
-
-  async function fetchRoutines() {
-    const response = await fetch(
-      "http://fitnesstrac-kr.herokuapp.com/api/routines"
-    );
-    setRoutines(await response.json());
-  }
 
   useEffect(() => {
     fetchUser();
-    fetchRoutines();
   }, [token]);
 
   return (
@@ -76,7 +65,9 @@ const Main = () => {
           <Home userData={userData} />
         </Route>
         <Route exact path="/activities">
-          <Activities />
+          <Activities 
+          userData = {userData}
+          token={token}/>
         </Route>
         <Route path="/routines">
           <Routines
@@ -115,40 +106,14 @@ const Main = () => {
           />
         </Route>
         <Route path="/my-routines">
-          <My_Routines
-            token={token}
-            setError={setError}
-            error={error}
-            userData={userData}
-            routines={routines}
-            setRoutines={setRoutines}
-            fetchRoutines={fetchRoutines}
-            username={username}
-            name={name}
-            goal={goal}
-            setName={setName}
-            setGoal={setGoal}
-          />
-        </Route>
-        <Route path="/routines/:routineId">
-          <EditRoutine
-            routines={routines}
-            name={name}
-            goal={goal}
-            setName={setName}
-            setGoal={setGoal}
-            token={token}
-            error={error}
-            setError={setError}
-            fetchRoutines={fetchRoutines}
-          />
+          <My_Routines />
         </Route>
       </div>
     </>
   );
 };
 
-const root = document.getElementById("root");
+const root = document.getElementById('root');
 ReactDOM.render(
   <BrowserRouter>
     <Main />
