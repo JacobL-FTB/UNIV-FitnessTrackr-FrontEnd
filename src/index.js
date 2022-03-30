@@ -78,10 +78,10 @@ const Main = () => {
         <Route path="/Create-Routine">
           <CreateRoutine userData={userData} />
         </Route>
-        <Route path="/Add-Activity">
-          <AddActivity />
+        <Route path="/:routineId/activities">
+          <AddActivity routineData={routineData} />
         </Route>
-        <Route path="/Edit-Routine">
+        <Route exact path="/:routineId/Edit">
           <EditRoutine />
         </Route>
         <Route path="/register">

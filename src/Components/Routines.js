@@ -1,7 +1,5 @@
-import { React, useEffect } from 'react';
+import { React, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-
-//
 
 const Routines = (props) => {
   const { routines, setRoutines, userData, setRoutineData } = props;
@@ -12,12 +10,16 @@ const Routines = (props) => {
     );
     setRoutines(await response.json());
   }
-  useEffect(fetchRoutines, []);
+
+  useEffect(() => {
+    fetchRoutines();
+  }, []);
 
   const deleteRoutine = (id) => {};
 
   return (
     <div>
+      <br />
       {userData ? (
         <Link className="createRoutine" to="/Create-Routine">
           Create New Routine
@@ -33,8 +35,14 @@ const Routines = (props) => {
               <h2 className="routineGoal">"{routine.goal}"</h2>
               <h4 className="routineCreator">By: {routine.creatorName}</h4>
               {userData ? (
-                userData.username === routine.creatorName ? (
-                  <Link className="Edit" to="/Add-Activity">
+                userData.username !== routine.creatorName ? (
+                  <Link
+                    className="button"
+                    to={`/${routine.id}/activities`}
+                    onClick={() => {
+                      setRoutineData(routine);
+                    }}
+                  >
                     Add an activity
                   </Link>
                 ) : (
@@ -62,7 +70,7 @@ const Routines = (props) => {
                   <>
                     <Link
                       className="button"
-                      to="/Edit-Routine"
+                      to={`/:${routine.id}/Edit`}
                       onClick={() => {
                         setRoutineData(routine);
                       }}
