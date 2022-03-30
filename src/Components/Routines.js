@@ -1,18 +1,8 @@
-import { React, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
-
-//
-const API_ROUTINES = "http://fitnesstrac-kr.herokuapp.com/api/routines";
+import { React, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const Routines = (props) => {
-  const { routines, setRoutines, userData, setRoutineData } = props;
-
-  async function fetchRoutines() {
-    const response = await fetch(`${API_ROUTINES}`);
-    setRoutines(await response.json());
-  }
-  useEffect(fetchRoutines, []);
+  const { routines, userData, setRoutineData } = props;
 
   return (
     <div>
@@ -24,8 +14,14 @@ const Routines = (props) => {
               <h2 className="routineGoal">"{routine.goal}"</h2>
               <h4 className="routineCreator">By: {routine.creatorName}</h4>
               {userData ? (
-                userData.username === routine.creatorName ? (
-                  <Link className="Edit" to="/Add-Activity">
+                userData.username !== routine.creatorName ? (
+                  <Link
+                    className="button"
+                    to={`/${routine.id}/activities`}
+                    onClick={() => {
+                      setRoutineData(routine);
+                    }}
+                  >
                     Add an activity
                   </Link>
                 ) : (
@@ -53,7 +49,7 @@ const Routines = (props) => {
                   <>
                     <Link
                       className="button"
-                      to="/routines/:routineId"
+                      to={`/:${routine.id}/Edit`}
                       onClick={() => {
                         setRoutineData(routine);
                       }}

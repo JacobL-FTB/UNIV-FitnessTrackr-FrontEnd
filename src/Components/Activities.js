@@ -52,34 +52,39 @@ const Activities = ({
   }, []);
 
   return (
-    <div>
+    <div> 
       <h1>Activities Page</h1>
-      {userData ? (
-        <form className="CreateActivity" onSubmit={handleSubmit}>
-          <input
-            required
-            type="text"
-            value={activityname}
-            placeholder="Activity Name"
-            onChange={(e) => {
-              e.preventDefault();
-              setActivityName(e.target.value);
-            }}
-          ></input>
-          <input
-            required
-            value={activityDescription}
-            type="text"
-            placeholder="Description"
-            onChange={(e) => {
-              e.preventDefault();
-              setActivityDescription(e.target.value);
-            }}
-          ></input>
-        </form>
-      ) : (
-        <></>
-      )}
+    {userData ? (
+    <form className="CreateActivity" onSubmit={handleSubmit}>
+    <input
+      required
+      type="text"
+      value={activityname}
+      placeholder="Activity Name"
+      onChange={(e) => {
+        e.preventDefault();
+        setActivityName(e.target.value);
+      }}
+    ></input>
+    <input
+      required
+      value={activityDescription}
+      type="text"
+      placeholder="Description"
+      onChange={(e) => {
+        e.preventDefault();
+        setActivityDescription(e.target.value);
+      }}
+      >
+    </input>
+    <button type="submit">Submit Actvity</button>
+    </form>
+    ):(
+      <></>
+    )}
+  
+     
+     
 
       {activities.map((activity) => (
         <div id="activities" key={activity.id}>

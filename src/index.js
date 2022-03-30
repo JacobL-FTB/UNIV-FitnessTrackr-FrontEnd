@@ -8,7 +8,6 @@ import {
   My_Routines,
   Routines,
   Login_Register,
-  CreateRoutine,
   AddActivity,
   EditRoutine,
 } from "./Components/index";
@@ -41,7 +40,8 @@ const Main = () => {
       });
       const info = await response.json();
       setUserData(info);
-      setUsername(info.username);
+
+      // setUsername(info.data.username);
     } catch (error) {
       throw error;
     }
