@@ -93,6 +93,15 @@ const Main = () => {
         </Route>
         <Route exact path="/activities">
           <Activities
+
+            activities={activities}
+            setActivities={setActivities}
+            fetchActivities={fetchActivities}
+          />
+        </Route>
+        <Route exact path="/activities/:activityId">
+          <Activities
+          
             activities={activities}
             setActivities={setActivities}
             fetchActivities={fetchActivities}

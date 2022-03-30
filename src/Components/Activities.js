@@ -14,19 +14,12 @@ const Activities = ({
   const [activityname, setActivityName] = useState([]);
   const [activityDescription, setActivityDescription] = useState([]);
 
-  // const fetchActivities = async () => {
-  //   const resp = await fetch(`${BASE_URL}/activities`);
-  //   const info = await resp.json();
-  //   console.log(info);
-  //   if (resp.error) {
-  //     throw new Error(resp.error);
-  //   }
-  //   setActivities(info);
-  // };
 
+//create activity
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    if (activityname)
     try {
       const response = await fetch(
         "http://fitnesstrac-kr.herokuapp.com/api/activities",
@@ -47,6 +40,24 @@ const Activities = ({
     }
   };
 
+//edit activity
+  const handleSubmitEdit = async (e) => {
+    e.preventDefault();
+    setError("");
+    try {
+      const response = await fetch(`http://fitnesstrac-kr.herokuapp.com/api/activities/${activity.id}`, {
+        method: "PATCH",
+        body: JSON.stringify({
+          name: activityname,
+          description: activityDescription,
+          }),
+        }
+      );
+    } catch (error) {
+      throw error;
+    }
+  };
+
   useEffect(() => {
     fetchActivities();
   }, []);
@@ -54,6 +65,7 @@ const Activities = ({
   return (
     <div> 
       <h1>Activities Page</h1>
+      {/* Create Activity  */}
     {userData ? (
     <form className="CreateActivity" onSubmit={handleSubmit}>
     <input
@@ -85,7 +97,7 @@ const Activities = ({
   
      
      
-
+{/* Show Activities  */}
       {activities.map((activity) => (
         <div id="activities" key={activity.id}>
           <Link to={`/activities/${activity.id}`}>
