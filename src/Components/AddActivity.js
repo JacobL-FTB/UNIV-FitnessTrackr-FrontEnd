@@ -8,11 +8,18 @@ const API_ROUTINES = "https://fitnesstrac-kr.herokuapp.com/api/routines";
 const API_ROUTINEACTIVITES =
   '"https://fitnesstrac-kr.herokuapp.com/api/routine_activities";';
 
-const AddActivity = ({ activities, setError, fetchRoutines, routines }) => {
+const AddActivity = ({
+  activities,
+  setError,
+  fetchRoutines,
+  routines,
+  token,
+}) => {
   const [count, setCount] = useState("");
   const [duration, setDuration] = useState("");
   const history = useHistory();
   const id = useParams();
+  const [routineActivityId, setRoutineActivityId] = useState("");
   console.log(id.routineId);
   console.log(routines);
   const routine = routines.filter((routine) => id.routineId == routine.id);
@@ -53,8 +60,22 @@ const AddActivity = ({ activities, setError, fetchRoutines, routines }) => {
   };
 
   const handleClick = async (e) => {
-    e.preventDefault();
-    const response = await fetch(`${API_ROUTINEACTIVITES}/${activityId}`);
+    try {
+      const response = await fetch(
+        `${API_ROUTINEACTIVITES}/${routineActivityId}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const info = await response.json();
+      console.log(info);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -70,7 +91,8 @@ const AddActivity = ({ activities, setError, fetchRoutines, routines }) => {
                 (activity) => activity.name === event.target.value
               );
               setActivityId(filteredArray[0].id);
-
+              setCount(filteredArray[0].count);
+              setDuration(filteredArray[0].duration);
               console.log(filteredArray[0].id);
             }}
           >
@@ -123,23 +145,31 @@ const AddActivity = ({ activities, setError, fetchRoutines, routines }) => {
 
         <button type="submit">Update Routine</button>
       </form>
-      <h1>Remove Activity From Routine</h1>
+      {/* <h1>Remove Activity From Routine</h1>
       <div>
-        {routine.activities &&
-          routine.activities.map((activity) => {
+        {routine[0].activities &&
+          routine[0].activities.map((activity) => {
+            console.log(activity.routineActivityId);
             return (
               <div key={activity.id}>
                 <h4>Activity: {activity.name}</h4>
                 <h4>Count:{activity.count}</h4>
                 <h4>Duration:{activity.duration}</h4>
                 <h4>id {activity.id}</h4>
-                <button onClick={handleClick} type="submit">
+                <button
+                  value={activity.routineActivityId}
+                  onClick={(e) => {
+                    setRoutineActivityId(e.target.value);
+                    handleClick();
+                  }}
+                  type="submit"
+                >
                   Delete Activity
                 </button>
               </div>
             );
           })}
-      </div>
+      </div> */}
     </>
   );
 };

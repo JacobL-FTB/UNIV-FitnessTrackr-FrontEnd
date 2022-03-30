@@ -95,6 +95,7 @@ const Main = () => {
             activities={activities}
             setActivities={setActivities}
             fetchActivities={fetchActivities}
+            userData={userData}
           />
         </Route>
         <Route exact path="/routines">
@@ -167,6 +168,9 @@ const Main = () => {
             setRoutines={setRoutines}
           />
         </Route>
+        {/* <Route path={`/routines_activities/${id.routineId}`}>
+          <DeleteActivity />
+        </Route> */}
       </div>
     </>
   );

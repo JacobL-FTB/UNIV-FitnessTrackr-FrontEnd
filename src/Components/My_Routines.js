@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const API_ROUTINES = "https://fitnesstrac-kr.herokuapp.com/api/routines";
+const API_ROUTINEACTIVITES =
+  "https://fitnesstrac-kr.herokuapp.com/api/routine_activities";
 
 const MyRoutines = ({
   error,
@@ -16,6 +19,8 @@ const MyRoutines = ({
   goal,
   setGoal,
 }) => {
+  // const [routineActivityId, setRoutineActivityId] = useState("");
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await fetch(`${API_ROUTINES}`, {
@@ -42,11 +47,12 @@ const MyRoutines = ({
 
   const lsToken = localStorage.getItem("token");
   // console.log(routines);
-  // console.log(userData);
+  console.log(userData);
 
   const myRoutinesArr = routines.filter(
-    (routine) => routine.creatorName === username
+    (routine) => routine.creatorName === userData.username
   );
+  console.log(myRoutinesArr);
 
   const handleDelete = async (routineId) => {
     const filteredArray = routines.filter(
@@ -62,8 +68,31 @@ const MyRoutines = ({
         },
       });
       const info = await response.json();
+      console.log(info);
     } catch (error) {
       console.error(error);
+    }
+    fetchRoutines();
+  };
+
+  const handleActivityDelete = async (id) => {
+    // const routineActivities = myRoutinesArr.map((routine) => {
+    //   routine.activities.filter((routineActivity) => {
+    //     routineActivity.id !== `${id}`;
+    //   });
+    // });
+
+    const response = await fetch(`${API_ROUTINEACTIVITES}/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${lsToken}`,
+      },
+    });
+    const info = await response.json();
+    console.log(info);
+    if (info.error) {
+      return setError(info.error.message);
     }
     fetchRoutines();
   };
@@ -107,16 +136,6 @@ const MyRoutines = ({
               </Link>
               <p className="post-info">{routine.goal}</p>
               <h4 className="post-info">By: {routine.creatorName}</h4>
-              {routine.activities &&
-                routine.activities.map((activity) => {
-                  return (
-                    <div key={activity.id}>
-                      <h4>Activity: {activity.name}</h4>
-                      <h4>Count:{activity.count}</h4>
-                      <h4>Duration:{activity.duration}</h4>
-                    </div>
-                  );
-                })}
               <button
                 value={routine.id}
                 onClick={(e) => {
@@ -124,11 +143,36 @@ const MyRoutines = ({
                   handleDelete(id);
                 }}
               >
-                Delete
+                Delete Routine
               </button>
               <Link className="button" to={`/routines/${routine.id}`}>
                 <button>Edit Routine</button>
               </Link>
+              <Link to={`/routines/${routine.id}/activities`}>
+                Add Activity
+              </Link>
+              {routine.activities &&
+                routine.activities.map((activity) => {
+                  console.log(activity);
+                  return (
+                    <div key={activity.id}>
+                      <h4>Activity: {activity.name}</h4>
+                      <h4>Count:{activity.count}</h4>
+                      <h4>Duration:{activity.duration}</h4>
+                      <button
+                        value={activity.routineActivityId}
+                        onClick={(e) => {
+                          const routineActivityId = e.target.value;
+                          handleActivityDelete(routineActivityId);
+                        }}
+                      >
+                        Delete Activity
+                      </button>
+                      <button>Update Activity</button>
+                    </div>
+                  );
+                })}
+
               <hr></hr>
             </div>
           ) : (
