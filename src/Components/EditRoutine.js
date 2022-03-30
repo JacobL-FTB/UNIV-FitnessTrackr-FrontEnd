@@ -74,7 +74,7 @@ const EditRoutine = ({
             className="input-posts"
             type="text"
             value={name}
-            // placeholder={routine[0].name}
+            placeholder={routine[0].name}
             onChange={(e) => {
               setName(e.target.value);
             }}
@@ -83,7 +83,7 @@ const EditRoutine = ({
             className="input-posts"
             type="text"
             value={goal}
-            // placeholder={routine[0].goal}
+            placeholder={routine[0].goal}
             onChange={(e) => {
               setGoal(e.target.value);
             }}
@@ -127,7 +127,9 @@ const EditRoutine = ({
               setDuration(e.target.value);
             }}
           ></input> */}
-          <Link to={`/routines/${id.routineId}/activities`}>Add Activity</Link>
+          <Link to={`/routines/${id.routineId}/activities`}>
+            Add or Delete Activity
+          </Link>
           <button type="submit">Update Routine</button>
         </form>
 

@@ -113,6 +113,7 @@ const Main = () => {
             token={token}
             setError={setError}
             fetchRoutines={fetchRoutines}
+            routines={routines}
           />
         </Route>
         <Route path="/register">
