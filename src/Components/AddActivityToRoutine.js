@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
 
-const AddActivity = (props) => {
+const AddActivityToRoutine = (props) => {
   const history = useHistory();
   const { routineData } = props;
   const [activities, setActivities] = useState([]);
@@ -85,4 +85,4 @@ const AddActivity = (props) => {
   );
 };
 
-export default AddActivity;
+export default AddActivityToRoutine;

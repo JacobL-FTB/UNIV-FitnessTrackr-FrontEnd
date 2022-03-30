@@ -2,27 +2,10 @@ import { React, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 const Routines = (props) => {
-  const { routines, setRoutines, userData, setRoutineData } = props;
-
-  async function fetchRoutines() {
-    const response = await fetch(`${API_ROUTINES}`);
-    setRoutines(await response.json());
-  }
-
-  useEffect(() => {
-    fetchRoutines();
-  }, []);
+  const { routines, userData, setRoutineData } = props;
 
   return (
     <div>
-      <br />
-      {userData ? (
-        <Link className="createRoutine" to="/Create-Routine">
-          Create New Routine
-        </Link>
-      ) : (
-        <></>
-      )}
       <div id="routines">
         {routines.map((routine) => {
           return (

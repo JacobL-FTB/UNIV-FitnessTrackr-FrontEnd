@@ -8,7 +8,6 @@ import {
   My_Routines,
   Routines,
   Login_Register,
-  CreateRoutine,
   AddActivity,
   EditRoutine,
 } from './Components/index';
@@ -105,9 +104,6 @@ const Main = () => {
             setRoutines={setRoutines}
             setRoutineData={setRoutineData}
           />
-        </Route>
-        <Route path="/Create-Routine">
-          <CreateRoutine userData={userData} />
         </Route>
         <Route path="/:routineId/activities">
           <AddActivity routineData={routineData} />

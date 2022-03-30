@@ -51,8 +51,7 @@ body > div {
   text-decoration: none;
   color: rgb(0, 0, 0);
 }
-.button,
-.createRoutine {
+.button {
   text-decoration: none;
   padding: 3px;
   margin: 10px;
