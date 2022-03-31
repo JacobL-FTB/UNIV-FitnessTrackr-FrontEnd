@@ -6,15 +6,14 @@ const BASE_URL = "https://fitnesstrac-kr.herokuapp.com/api";
 
 const Activities = ({
   userData,
-  token,
   activities,
-  setActivities,
   fetchActivities,
   setError,
   error,
 }) => {
   const [activityName, setActivityName] = useState([]);
   const [activityDescription, setActivityDescription] = useState([]);
+ 
 
   const lsToken = localStorage.getItem("token");
 
@@ -46,25 +45,7 @@ const Activities = ({
     }
   };
 
-  //edit activity
-  const handleSubmitEdit = async (e) => {
-    e.preventDefault();
-    setError("");
-    try {
-      const response = await fetch(
-        `http://fitnesstrac-kr.herokuapp.com/api/activities/${activity.id}`,
-        {
-          method: "PATCH",
-          body: JSON.stringify({
-            name: activityName,
-            description: activityDescription,
-          }),
-        }
-      );
-    } catch (error) {
-      throw error;
-    }
-  };
+  
 
   useEffect(() => {
     fetchActivities();
@@ -110,6 +91,7 @@ const Activities = ({
           </Link>
           <h3>{activity.name}</h3>
           <p>{activity.description}</p>
+          <button>Edit</button>
         </div>
       ))}
     </div>
