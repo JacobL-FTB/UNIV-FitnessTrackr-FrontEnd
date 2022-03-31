@@ -26,6 +26,7 @@ const Main = () => {
   const [name, setName] = useState("");
   const [goal, setGoal] = useState("");
   const [activities, setActivities] = useState([]);
+  const [activitiesRoutines, setActivitiesRoutines] = useState([]);
 
   const fetchUser = async () => {
     const lsToken = localStorage.getItem("token");
@@ -109,6 +110,15 @@ const Main = () => {
             fetchUser={fetchUser}
           />
         </Route> */}
+        <Route exact path="/activities/routineId">
+          <Activities
+activitiesRoutines={activitiesRoutines}
+setActivitiesRoutines={setActivitiesRoutines}
+            userData={userData}
+            setError={setError}
+            error={error}
+          />
+        </Route>
         <Route exact path="/routines">
           <Routines
             userData={userData}
