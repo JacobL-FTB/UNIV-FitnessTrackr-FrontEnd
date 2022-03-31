@@ -99,6 +99,7 @@ const Main = () => {
         <Route exact path="/">
           <Home userData={userData} />
         </Route>
+        {/* Activities  */}
         <Route exact path="/activities">
           <Activities
             activities={activities}
@@ -109,11 +110,21 @@ const Main = () => {
             error={error}
           />
         </Route>
-        <Route exact path="/activities/routineId">
+        {/* Edit */}
+        <Route exact path="/activities/:activityId">
+          <Activities
+            activities={activities}
+            setActivities={setActivities}
+            fetchActivities={fetchActivities}
+            userData={userData}
+            fetchUser={fetchUser}
+          />
+        </Route>
+        {/* Activity to Routine  */}
+        <Route exact path="/activities/:activiiyId/routine">
           <Activities
             activitiesRoutines={activitiesRoutines}
             setActivitiesRoutines={setActivitiesRoutines}
-            userData={userData}
             setError={setError}
             error={error}
           />
