@@ -14,13 +14,11 @@ const MyRoutines = ({
   routines,
   setRoutines,
   fetchRoutines,
-  username,
   name,
   setName,
   goal,
   setGoal,
 }) => {
-  const [routineActivityId, setRoutineActivityId] = useState("");
   const [count, setCount] = useState("");
   const [duration, setDuration] = useState("");
   const myRoutinesArr = routines.filter(
@@ -77,12 +75,6 @@ const MyRoutines = ({
   };
 
   const handleActivityDelete = async (id) => {
-    // const routineActivities = myRoutinesArr.map((routine) => {
-    //   routine.activities.filter((routineActivity) => {
-    //     routineActivity.id !== `${id}`;
-    //   });
-    // });
-
     const response = await fetch(`${API_ROUTINEACTIVITES}/${id}`, {
       method: "DELETE",
       headers: {
@@ -151,14 +143,14 @@ const MyRoutines = ({
         </form>
         <p>{error}</p>
       </div>
-      <h3 id="my-routines-label">My Routines:</h3>
+      <hr></hr>
+      <h2 id="my-routines-label">My Routines:</h2>
 
       {myRoutinesArr.map((routine) => {
         return routine.isPublic ? (
           <div className="routines-results" key={routine.id}>
-            {/* <Link to={`/routines/${routine.id}`}> */}
             <h3 className="routine">Routine Name: {routine.name}</h3>
-            {/* </Link> */}
+
             <p className="routine">Goal: {routine.goal}</p>
             <h4 className="routine">By: {routine.creatorName}</h4>
             <button
@@ -171,15 +163,17 @@ const MyRoutines = ({
             >
               Delete Routine
             </button>
-            <Link className="routine" to={`/routines/${routine.id}`}>
+            <Link className="routine-link" to={`/routines/${routine.id}`}>
               Update Routine
             </Link>
-            <Link className="routine" to={`/routines/${routine.id}/activities`}>
+            <Link
+              className="routine-link"
+              to={`/routines/${routine.id}/activities`}
+            >
               Add Activity
             </Link>
             {routine.activities &&
               routine.activities.map((activity) => {
-                console.log(activity);
                 return (
                   <div className="activities-results" key={activity.id}>
                     <h4 className="activities">

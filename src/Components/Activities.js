@@ -40,6 +40,7 @@ const Activities = ({
       const info = await response.json();
       setActivityName("");
       setActivityDescription("");
+      fetchActivities();
     } catch (error) {
       throw error;
     }
