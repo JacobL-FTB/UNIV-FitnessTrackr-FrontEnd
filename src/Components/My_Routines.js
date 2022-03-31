@@ -1,16 +1,10 @@
-<<<<<<< HEAD
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 const API_ROUTINES = 'https://fitnesstrac-kr.herokuapp.com/api/routines';
-=======
-import { Link } from "react-router-dom";
-import { useState } from "react";
-import { useEffect } from "react";
-
-const API_ROUTINES = "https://fitnesstrac-kr.herokuapp.com/api/routines";
 const API_ROUTINEACTIVITES =
-  "https://fitnesstrac-kr.herokuapp.com/api/routine_activities";
->>>>>>> d83ef5508a71e3534df17370dfd659d88ca78113
+  'https://fitnesstrac-kr.herokuapp.com/api/routine_activities';
 
 const MyRoutines = ({
   error,
@@ -27,8 +21,8 @@ const MyRoutines = ({
   setToken,
   setUserData,
 }) => {
-  const [count, setCount] = useState("");
-  const [duration, setDuration] = useState("");
+  const [count, setCount] = useState('');
+  const [duration, setDuration] = useState('');
   const myRoutinesArr = routines.filter(
     (routine) => routine.creatorName === userData.username
   );
@@ -54,30 +48,12 @@ const MyRoutines = ({
     if (info.error) {
       return setError(info.error);
     }
-<<<<<<< HEAD
-    fetchRoutines();
     setName('');
     setGoal('');
+    fetchRoutines();
   };
 
   const lsToken = localStorage.getItem('token');
-  // console.log(routines);
-  // console.log(userData);
-
-  let myRoutinesArr = [];
-  if (userData) {
-    myRoutinesArr = routines.filter((routine) => {
-      if (routine.creatorId === userData.id) return true;
-    });
-  }
-=======
-    setName("");
-    setGoal("");
-    fetchRoutines();
-  };
-
-  const lsToken = localStorage.getItem("token");
->>>>>>> d83ef5508a71e3534df17370dfd659d88ca78113
 
   const handleDelete = async (routineId) => {
     const filteredArray = routines.filter(
@@ -102,9 +78,9 @@ const MyRoutines = ({
 
   const handleActivityDelete = async (id) => {
     const response = await fetch(`${API_ROUTINEACTIVITES}/${id}`, {
-      method: "DELETE",
+      method: 'DELETE',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${lsToken}`,
       },
     });
@@ -118,9 +94,9 @@ const MyRoutines = ({
 
   const handleUpdate = async (id) => {
     const response = await fetch(`${API_ROUTINEACTIVITES}/${id}`, {
-      method: "PATCH",
+      method: 'PATCH',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
@@ -133,26 +109,18 @@ const MyRoutines = ({
     if (info.error) {
       return setError(info.error.message);
     }
-    setCount("");
-    setDuration("");
+    setCount('');
+    setDuration('');
     fetchRoutines();
   };
 
   return (
     <>
-<<<<<<< HEAD
-      <div>
-        {userData ? <h2>Create New Routine</h2> : <></>}
-        <form className="new-post" onSubmit={handleSubmit}>
-          <input
-            className="input-posts"
-=======
       {userData ? <h2 id="new-routine-heading">Create New Routine</h2> : <></>}
       <div id="new-routine">
         <form onSubmit={handleSubmit}>
           <input
             className="input-create-routine"
->>>>>>> d83ef5508a71e3534df17370dfd659d88ca78113
             type="text"
             required
             value={name}
@@ -162,11 +130,7 @@ const MyRoutines = ({
             }}
           ></input>
           <input
-<<<<<<< HEAD
-            className="input-posts"
-=======
             className="input-create-routine"
->>>>>>> d83ef5508a71e3534df17370dfd659d88ca78113
             type="text"
             required
             value={goal}
@@ -175,65 +139,6 @@ const MyRoutines = ({
               setGoal(e.target.value);
             }}
           ></input>
-<<<<<<< HEAD
-          <button type="submit">Submit Routine</button>
-        </form>
-        <p>{error}</p>
-        <h3 id="post-label" className="my-info">
-          My Routines:
-        </h3>
-        <section className="my-messages">
-          {myRoutinesArr.map((routine) => {
-            return routine.isPublic ? (
-              <div className="routineView" key={routine.id}>
-                <Link className="post-links" to={`/routines/${routine.id}`}>
-                  <h3 className="post-title">{routine.name}</h3>
-                </Link>
-                <p className="post-info">{routine.goal}</p>
-                <h4 className="post-info">By: {routine.creatorName}</h4>
-                {routine.activities &&
-                  routine.activities.map((activity) => {
-                    return (
-                      <div key={activity.id}>
-                        <h4>Activity: {activity.name}</h4>
-                        <h4>Count:{activity.count}</h4>
-                        <h4>Duration:{activity.duration}</h4>
-                      </div>
-                    );
-                  })}
-                <button
-                  value={routine.id}
-                  onClick={(e) => {
-                    const id = e.target.value;
-                    handleDelete(id);
-                  }}
-                >
-                  Delete
-                </button>
-                <Link className="button" to={`/routines/${routine.id}/Edit`}>
-                  <button>Edit Routine</button>
-                </Link>
-                <hr></hr>
-              </div>
-            ) : (
-              <h1>Hello</h1>
-            );
-          })}
-        </section>
-        <Link
-          className="button"
-          to="/"
-          hidden={userData ? false : true}
-          onClick={() => {
-            setToken('');
-            localStorage.removeItem('token');
-            setUserData(null);
-          }}
-        >
-          Logout
-        </Link>
-      </div>
-=======
           <button className="input-create-routine" type="submit">
             Submit Routine
           </button>
@@ -325,7 +230,6 @@ const MyRoutines = ({
           <h1>Hello</h1>
         );
       })}
->>>>>>> d83ef5508a71e3534df17370dfd659d88ca78113
     </>
   );
 };
