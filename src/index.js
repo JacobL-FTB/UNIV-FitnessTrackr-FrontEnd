@@ -1,6 +1,6 @@
-import { BrowserRouter, Route } from 'react-router-dom';
-import ReactDOM from 'react-dom';
-import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Route } from "react-router-dom";
+import ReactDOM from "react-dom";
+import React, { useState, useEffect } from "react";
 import {
   Activities,
   Home,
@@ -10,31 +10,33 @@ import {
   Login_Register,
   AddActivity,
   EditRoutine,
-} from './Components/index';
+  EditActivity,
+} from "./Components/index";
 
-const API_USER = 'http://fitnesstrac-kr.herokuapp.com/api/users/me';
-const BASE_URL = 'https://fitnesstrac-kr.herokuapp.com/api';
+const API_USER = "http://fitnesstrac-kr.herokuapp.com/api/users/me";
+const BASE_URL = "https://fitnesstrac-kr.herokuapp.com/api";
 
 const Main = () => {
   const [userData, setUserData] = useState(null);
-  const [token, setToken] = useState('');
+  const [token, setToken] = useState("");
   const [routines, setRoutines] = useState([]);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [routineData, setRoutineData] = useState({});
-  const [username, setUsername] = useState('');
-  const [name, setName] = useState('');
-  const [goal, setGoal] = useState('');
+  const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
+  const [goal, setGoal] = useState("");
   const [activities, setActivities] = useState([]);
+  const [activitiesRoutines, setActivitiesRoutines] = useState([]);
 
   const fetchUser = async () => {
-    const lsToken = localStorage.getItem('token');
+    const lsToken = localStorage.getItem("token");
     if (lsToken) {
       setToken(lsToken);
     }
     try {
       const response = await fetch(`${API_USER}`, {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
           Authorization: `Bearer ${lsToken}`,
         },
       });
@@ -46,21 +48,20 @@ const Main = () => {
       throw error;
     }
   };
-  // console.log(userData);
 
   async function fetchRoutines() {
     const response = await fetch(
-      'http://fitnesstrac-kr.herokuapp.com/api/routines'
+      "http://fitnesstrac-kr.herokuapp.com/api/routines"
     );
     const info = await response.json();
-    console.log(info);
+
     setRoutines(info);
   }
 
   const fetchActivities = async () => {
     const resp = await fetch(`${BASE_URL}/activities`);
     const info = await resp.json();
-    // console.log(info);
+
     if (resp.error) {
       throw new Error(resp.error);
     }
@@ -96,6 +97,29 @@ const Main = () => {
             setActivities={setActivities}
             fetchActivities={fetchActivities}
             userData={userData}
+<<<<<<< HEAD
+=======
+            setError={setError}
+            error={error}
+          />
+        </Route>
+        {/* <Route exact path="/activities/:activityId">
+          <Activities
+            activities={activities}
+            setActivities={setActivities}
+            fetchActivities={fetchActivities}
+            userData={userData}
+            fetchUser={fetchUser}
+          />
+        </Route> */}
+        <Route exact path="/activities/routineId">
+          <Activities
+activitiesRoutines={activitiesRoutines}
+setActivitiesRoutines={setActivitiesRoutines}
+            userData={userData}
+            setError={setError}
+            error={error}
+>>>>>>> d83ef5508a71e3534df17370dfd659d88ca78113
           />
         </Route>
         <Route exact path="/routines">
@@ -106,11 +130,24 @@ const Main = () => {
             setRoutineData={setRoutineData}
           />
         </Route>
+<<<<<<< HEAD
         <Route path="/:routineId/activities">
           <AddActivity routineData={routineData} />
         </Route>
         <Route exact path="/routines/:routineId/Edit">
           <EditRoutine routines={routines} />
+=======
+
+        <Route exact path="/routines/:routineId/activities">
+          <AddActivity
+            activities={activities}
+            setActivities={setActivities}
+            token={token}
+            setError={setError}
+            fetchRoutines={fetchRoutines}
+            routines={routines}
+          />
+>>>>>>> d83ef5508a71e3534df17370dfd659d88ca78113
         </Route>
         <Route path="/register">
           <Login_Register
@@ -170,7 +207,7 @@ const Main = () => {
   );
 };
 
-const root = document.getElementById('root');
+const root = document.getElementById("root");
 ReactDOM.render(
   <BrowserRouter>
     <Main />

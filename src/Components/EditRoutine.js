@@ -22,11 +22,19 @@ const EditRoutine = ({
   const history = useHistory();
   const id = useParams();
 
+<<<<<<< HEAD
   const [activity, setActivity] = useState('any');
   const [count, setCount] = useState('');
   const [duration, setDuration] = useState('');
   const routine = routines.filter((routine) => id == routine.id);
   console.log(routine.name);
+=======
+  // const [activity, setActivity] = useState("any");
+  // const [count, setCount] = useState("");
+  // const [duration, setDuration] = useState("");
+  const routine = routines.filter((routine) => id.routineId == routine.id);
+  console.log(routine);
+>>>>>>> d83ef5508a71e3534df17370dfd659d88ca78113
   const [isPublic, setIsPublic] = useState(true);
 
   const createForm = () => {
@@ -42,24 +50,27 @@ const EditRoutine = ({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+<<<<<<< HEAD
     const response2 = await fetch(`${API_ROUTINES}/${id}`, {
       method: 'PATCH',
+=======
+    const response = await fetch(`${API_ROUTINES}/${id.routineId}`, {
+      method: "PATCH",
+>>>>>>> d83ef5508a71e3534df17370dfd659d88ca78113
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
-        post: {
-          name,
-          goal,
-          isPublic,
-        },
+        name,
+        goal,
+        isPublic,
       }),
     });
-    const info2 = await response2.json();
-    console.log;
-    if (info2.error) {
-      return setError(info2.error.message);
+    const info = await response.json();
+    console.log(info);
+    if (info.error) {
+      return setError(info.error.message);
     }
     fetchRoutines();
     history.push('/my-routines');
@@ -74,7 +85,7 @@ const EditRoutine = ({
             className="input-posts"
             type="text"
             value={name}
-            // placeholder={routine[0].name}
+            placeholder={routine[0].name}
             onChange={(e) => {
               setName(e.target.value);
             }}
@@ -83,51 +94,16 @@ const EditRoutine = ({
             className="input-posts"
             type="text"
             value={goal}
-            // placeholder={routine[0].goal}
+            placeholder={routine[0].goal}
             onChange={(e) => {
               setGoal(e.target.value);
             }}
           ></input>
 
-          {/* <fieldset>
-            <label>Add Activity To Routine</label>
-            <select
-              value={activity}
-              onChange={(event) => {
-                setActivity(event.target.value);
-              }}
-            >
-              <option value="any">Any</option>
-              {activities.map((activity) => {
-                return (
-                  <>
-                    <option key={activity.id} value={activity.name}>
-                      {activity.name}
-                    </option>
-                  </>
-                );
-              })}
-            </select>
-          </fieldset>
-          <input
-            className="input-posts"
-            type="text"
-            value={count}
-            placeholder="Count"
-            onChange={(e) => {
-              setCount(e.target.value);
-            }}
-          ></input>
-          <input
-            className="input-posts"
-            type="text"
-            value={duration}
-            placeholder="Duration"
-            onChange={(e) => {
-              setDuration(e.target.value);
-            }}
-          ></input> */}
-          <Link to={`/routines/${id.routineId}/activities`}>Add Activity</Link>
+          {/* <Link to={`/routines/${id.routineId}/activities`}>Add Activity</Link>
+          <Link to={`/routines_activities/${id.routineId}`}>
+            Delete or Change Activity
+          </Link> */}
           <button type="submit">Update Routine</button>
         </form>
 

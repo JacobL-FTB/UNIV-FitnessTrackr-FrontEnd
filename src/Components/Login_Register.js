@@ -1,67 +1,33 @@
-import { useState, useEffect } from 'react';
-import { useHistory } from 'react-router';
-import { Link } from 'react-router-dom';
+import { useState } from "react";
+import { useHistory } from "react-router";
+import { Link } from "react-router-dom";
 
-const BASE_URL = 'https://fitnesstrac-kr.herokuapp.com/api/';
-const API_LOGIN = 'http://fitnesstrac-kr.herokuapp.com/api/users/login';
-const API_REGISTER = 'http://fitnesstrac-kr.herokuapp.com/api/users/register';
+const API_LOGIN = "http://fitnesstrac-kr.herokuapp.com/api/users/login";
+const API_REGISTER = "http://fitnesstrac-kr.herokuapp.com/api/users/register";
 
-const Login_Register = ({
-  token,
-  setToken,
-  action,
-  error,
-  setError,
-  setUserData,
-}) => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirm, setConfirm] = useState('');
+const Login_Register = ({ setToken, action, error, setError }) => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirm, setConfirm] = useState("");
 
-  const isLogin = action === 'login';
-  const title = isLogin ? 'Login' : 'Register';
-  const oppositeTitle = isLogin ? 'Register' : 'Login';
-  const oppositeAction = isLogin ? 'register' : 'login';
+  const isLogin = action === "login";
+  const title = isLogin ? "Login" : "Register";
+  const oppositeTitle = isLogin ? "Register" : "Login";
+  const oppositeAction = isLogin ? "register" : "login";
   const actionURL = isLogin ? API_LOGIN : API_REGISTER;
   const history = useHistory();
 
-  // const fetchUser = async () => {
-  //   const lsToken = localStorage.getItem("token");
-  //   console.log(lsToken);
-  //   if (lsToken) {
-  //     setToken(lsToken);
-  //   }
-  //   try {
-  //     const response = await fetch(`${API_USER}`, {
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: `Bearer ${lsToken}`,
-  //       },
-  //     });
-  //     const info = await response.json();
-  //     console.log(info);
-  //     setUserData(info.user);
-  //     // setUsername(info.user.username);
-  //   } catch (error) {
-  //     throw error;
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   fetchUser();
-  // }, [token]);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
     if (!isLogin && password !== confirm) {
-      setError('Passwords do not match');
+      setError("Passwords do not match");
     } else {
       try {
         const response = await fetch(`${actionURL}`, {
-          method: 'POST',
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({
             username,
@@ -74,8 +40,8 @@ const Login_Register = ({
           return setError(info.error);
         }
         setToken(info.token);
-        localStorage.setItem('token', info.token);
-        history.push('/');
+        localStorage.setItem("token", info.token);
+        history.push("/");
       } catch (error) {
         throw error;
       }
@@ -87,6 +53,7 @@ const Login_Register = ({
       <h3 className="main-login">{title}</h3>
       <form className="sign-in" onSubmit={handleSubmit}>
         <input
+          className="sign-in-box"
           required
           type="text"
           value={username}
@@ -97,6 +64,7 @@ const Login_Register = ({
           }}
         ></input>
         <input
+          className="sign-in-box"
           required
           value={password}
           type="password"
@@ -108,6 +76,7 @@ const Login_Register = ({
         ></input>
         {!isLogin ? (
           <input
+            className="sign-in-box"
             required
             value={confirm}
             type="password"
@@ -118,9 +87,13 @@ const Login_Register = ({
             }}
           ></input>
         ) : null}
-        <button type="submit">{title}</button>
-        <p id="error">{error}</p>
-        <Link className="link" to={`${oppositeAction}`}>
+        <button className="sign-in-box" type="submit">
+          {title}
+        </button>
+        <p className="sign-in-box" id="error">
+          {error}
+        </p>
+        <Link className="sign-in-box" to={`${oppositeAction}`}>
           Click here to {oppositeTitle}
         </Link>
       </form>

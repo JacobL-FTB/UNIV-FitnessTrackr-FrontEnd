@@ -6,27 +6,22 @@ const BASE_URL = "https://fitnesstrac-kr.herokuapp.com/api";
 
 const Activities = ({
   userData,
-  token,
   activities,
-  setActivities,
   fetchActivities,
+  setError,
+  error,
 }) => {
-  const [activityname, setActivityName] = useState([]);
+  const [activityName, setActivityName] = useState([]);
   const [activityDescription, setActivityDescription] = useState([]);
+ 
 
-  // const fetchActivities = async () => {
-  //   const resp = await fetch(`${BASE_URL}/activities`);
-  //   const info = await resp.json();
-  //   console.log(info);
-  //   if (resp.error) {
-  //     throw new Error(resp.error);
-  //   }
-  //   setActivities(info);
-  // };
+  const lsToken = localStorage.getItem("token");
 
+  //create activity
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+
     try {
       const response = await fetch(
         "http://fitnesstrac-kr.herokuapp.com/api/activities",
@@ -34,58 +29,62 @@ const Activities = ({
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${lsToken}`,
           },
           body: JSON.stringify({
-            name: activityname,
+            name: activityName,
             description: activityDescription,
           }),
         }
       );
+      const info = await response.json();
+      setActivityName("");
+      setActivityDescription("");
+      fetchActivities();
     } catch (error) {
       throw error;
     }
   };
+
+  
 
   useEffect(() => {
     fetchActivities();
   }, []);
 
   return (
-    <div> 
+    <div>
       <h1>Activities Page</h1>
-    {userData ? (
-    <form className="CreateActivity" onSubmit={handleSubmit}>
-    <input
-      required
-      type="text"
-      value={activityname}
-      placeholder="Activity Name"
-      onChange={(e) => {
-        e.preventDefault();
-        setActivityName(e.target.value);
-      }}
-    ></input>
-    <input
-      required
-      value={activityDescription}
-      type="text"
-      placeholder="Description"
-      onChange={(e) => {
-        e.preventDefault();
-        setActivityDescription(e.target.value);
-      }}
-      >
-    </input>
-    <button type="submit">Submit Actvity</button>
-    </form>
-    ):(
-      <></>
-    )}
-  
-     
-     
+      {/* Create Activity  */}
+      {userData ? (
+        <form className="CreateActivity" onSubmit={handleSubmit}>
+          <input
+            required
+            type="text"
+            value={activityName}
+            placeholder="Activity Name"
+            onChange={(e) => {
+              e.preventDefault();
+              setActivityName(e.target.value);
+            }}
+          ></input>
+          <input
+            required
+            value={activityDescription}
+            type="text"
+            placeholder="Description"
+            onChange={(e) => {
+              e.preventDefault();
+              setActivityDescription(e.target.value);
+            }}
+          ></input>
+          <button type="submit">Submit Actvity</button>
+        </form>
+      ) : (
+        <></>
+      )}
 
+      {/* Show Activities  */}
       {activities.map((activity) => (
         <div id="activities" key={activity.id}>
           <Link to={`/activities/${activity.id}`}>
@@ -93,6 +92,7 @@ const Activities = ({
           </Link>
           <h3>{activity.name}</h3>
           <p>{activity.description}</p>
+          <button>Edit</button>
         </div>
       ))}
     </div>
