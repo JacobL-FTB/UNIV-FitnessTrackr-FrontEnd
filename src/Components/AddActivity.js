@@ -1,8 +1,8 @@
-import { useHistory } from "react-router-dom";
-import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useHistory } from 'react-router-dom';
+import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 
-const API_ROUTINES = "https://fitnesstrac-kr.herokuapp.com/api/routines";
+const API_ROUTINES = 'https://fitnesstrac-kr.herokuapp.com/api/routines';
 const API_ROUTINEACTIVITES =
   '"https://fitnesstrac-kr.herokuapp.com/api/routine_activities";';
 
@@ -13,11 +13,11 @@ const AddActivity = ({
   routines,
   token,
 }) => {
-  const [count, setCount] = useState("");
-  const [duration, setDuration] = useState("");
+  const [count, setCount] = useState('');
+  const [duration, setDuration] = useState('');
   const history = useHistory();
   const id = useParams();
-  const [routineActivityId, setRoutineActivityId] = useState("");
+  const [routineActivityId, setRoutineActivityId] = useState('');
   console.log(id.routineId);
   console.log(routines);
   const routine = routines.filter((routine) => id.routineId == routine.id);
@@ -27,8 +27,8 @@ const AddActivity = ({
   // );
   // console.log(filteredArray);
 
-  const [activity, setActivity] = useState("any");
-  const [activityId, setActivityId] = useState("");
+  const [activity, setActivity] = useState('any');
+  const [activityId, setActivityId] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -37,9 +37,9 @@ const AddActivity = ({
     console.log(activity);
 
     const response = await fetch(`${API_ROUTINES}/${id.routineId}/activities`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
         // Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
@@ -54,7 +54,7 @@ const AddActivity = ({
       return setError(info.error.message);
     }
     fetchRoutines();
-    history.push("/my-routines");
+    history.push('/my-routines');
   };
 
   return (

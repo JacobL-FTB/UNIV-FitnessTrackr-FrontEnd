@@ -22,19 +22,11 @@ const EditRoutine = ({
   const history = useHistory();
   const id = useParams();
 
-<<<<<<< HEAD
-  const [activity, setActivity] = useState('any');
-  const [count, setCount] = useState('');
-  const [duration, setDuration] = useState('');
-  const routine = routines.filter((routine) => id == routine.id);
-  console.log(routine.name);
-=======
   // const [activity, setActivity] = useState("any");
   // const [count, setCount] = useState("");
   // const [duration, setDuration] = useState("");
   const routine = routines.filter((routine) => id.routineId == routine.id);
   console.log(routine);
->>>>>>> d83ef5508a71e3534df17370dfd659d88ca78113
   const [isPublic, setIsPublic] = useState(true);
 
   const createForm = () => {
@@ -50,13 +42,8 @@ const EditRoutine = ({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-<<<<<<< HEAD
-    const response2 = await fetch(`${API_ROUTINES}/${id}`, {
-      method: 'PATCH',
-=======
     const response = await fetch(`${API_ROUTINES}/${id.routineId}`, {
-      method: "PATCH",
->>>>>>> d83ef5508a71e3534df17370dfd659d88ca78113
+      method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
