@@ -13,23 +13,6 @@ const Routines = (props) => {
               <h1 className="routineName">{routine.name}</h1>
               <h2 className="routineGoal">"{routine.goal}"</h2>
               <h4 className="routineCreator">By: {routine.creatorName}</h4>
-              {userData ? (
-                userData.username !== routine.creatorName ? (
-                  <Link
-                    className="button"
-                    to={`/${routine.id}/activities`}
-                    onClick={() => {
-                      setRoutineData(routine);
-                    }}
-                  >
-                    Add an activity
-                  </Link>
-                ) : (
-                  <></>
-                )
-              ) : (
-                <></>
-              )}
               <ul>
                 {routine.activities.map((activity) => {
                   return (
@@ -44,25 +27,6 @@ const Routines = (props) => {
                   );
                 })}
               </ul>
-              {userData ? (
-                userData.username === routine.creatorName ? (
-                  <>
-                    <Link
-                      className="button"
-                      to={`/:${routine.id}/Edit`}
-                      onClick={() => {
-                        setRoutineData(routine);
-                      }}
-                    >
-                      Edit Routine
-                    </Link>
-                  </>
-                ) : (
-                  <></>
-                )
-              ) : (
-                <></>
-              )}
             </div>
           );
         })}

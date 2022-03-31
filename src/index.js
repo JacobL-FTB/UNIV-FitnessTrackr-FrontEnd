@@ -95,6 +95,7 @@ const Main = () => {
             activities={activities}
             setActivities={setActivities}
             fetchActivities={fetchActivities}
+            userData={userData}
           />
         </Route>
         <Route exact path="/routines">
@@ -108,8 +109,8 @@ const Main = () => {
         <Route path="/:routineId/activities">
           <AddActivity routineData={routineData} />
         </Route>
-        <Route exact path="/:routineId/Edit">
-          <EditRoutine />
+        <Route exact path="/routines/:routineId/Edit">
+          <EditRoutine routines={routines} />
         </Route>
         <Route path="/register">
           <Login_Register
@@ -138,6 +139,8 @@ const Main = () => {
             userData={userData}
             routines={routines}
             setRoutines={setRoutines}
+            setToken={setToken}
+            setUserData={setUserData}
             fetchRoutines={fetchRoutines}
             username={username}
             name={name}

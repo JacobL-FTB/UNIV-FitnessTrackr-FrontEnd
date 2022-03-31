@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-//
 
 const Navbar = ({ setToken, userData, setUserData }) => {
   return (
@@ -27,18 +26,6 @@ const Navbar = ({ setToken, userData, setUserData }) => {
             Register
           </Link>
         )}
-        <Link
-          className="link"
-          to="/"
-          hidden={userData ? false : true}
-          onClick={() => {
-            setToken('');
-            localStorage.removeItem('token');
-            setUserData(null);
-          }}
-        >
-          Logout
-        </Link>
       </div>
     </>
   );

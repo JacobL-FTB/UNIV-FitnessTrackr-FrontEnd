@@ -1,10 +1,10 @@
-import { useState } from "react";
-import { useParams } from "react-router-dom";
-import { useHistory } from "react-router-dom";
-import { Link } from "react-router-dom";
-import { useEffect } from "react";
+import { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 
-const API_ROUTINES = "https://fitnesstrac-kr.herokuapp.com/api/routines";
+const API_ROUTINES = 'https://fitnesstrac-kr.herokuapp.com/api/routines';
 
 const EditRoutine = ({
   routines,
@@ -22,18 +22,18 @@ const EditRoutine = ({
   const history = useHistory();
   const id = useParams();
 
-  const [activity, setActivity] = useState("any");
-  const [count, setCount] = useState("");
-  const [duration, setDuration] = useState("");
-  const routine = routines.filter((routine) => id.routineId == routine.id);
+  const [activity, setActivity] = useState('any');
+  const [count, setCount] = useState('');
+  const [duration, setDuration] = useState('');
+  const routine = routines.filter((routine) => id == routine.id);
   console.log(routine.name);
   const [isPublic, setIsPublic] = useState(true);
 
   const createForm = () => {
-    if (name === "") {
+    if (name === '') {
       setName(routine.name);
     }
-    if (goal === "") {
+    if (goal === '') {
       setGoal(routine.goal);
     }
   };
@@ -43,9 +43,9 @@ const EditRoutine = ({
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response2 = await fetch(`${API_ROUTINES}/${id}`, {
-      method: "PATCH",
+      method: 'PATCH',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
@@ -62,7 +62,7 @@ const EditRoutine = ({
       return setError(info2.error.message);
     }
     fetchRoutines();
-    history.push("/my-routines");
+    history.push('/my-routines');
   };
 
   return (
