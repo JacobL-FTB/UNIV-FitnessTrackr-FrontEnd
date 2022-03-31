@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 //
 
 const Navbar = ({ setToken, userData, setUserData }) => {
@@ -32,8 +32,8 @@ const Navbar = ({ setToken, userData, setUserData }) => {
           to="/"
           hidden={userData ? false : true}
           onClick={() => {
-            setToken('');
-            localStorage.removeItem('token');
+            setToken("");
+            localStorage.removeItem("token");
             setUserData(null);
           }}
         >

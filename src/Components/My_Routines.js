@@ -18,14 +18,14 @@ const MyRoutines = ({
   setName,
   goal,
   setGoal,
+  username,
 }) => {
   const [count, setCount] = useState("");
   const [duration, setDuration] = useState("");
   const myRoutinesArr = routines.filter(
     (routine) => routine.creatorName === userData.username
   );
-  console.log(myRoutinesArr);
-  console.log(userData);
+  const lsToken = localStorage.getItem("token");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,7 +33,7 @@ const MyRoutines = ({
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${lsToken}`,
       },
       body: JSON.stringify({
         name,
@@ -42,7 +42,6 @@ const MyRoutines = ({
       }),
     });
     const info = await response.json();
-    console.log(info);
     if (info.error) {
       return setError(info.error);
     }
@@ -50,8 +49,6 @@ const MyRoutines = ({
     setGoal("");
     fetchRoutines();
   };
-
-  const lsToken = localStorage.getItem("token");
 
   const handleDelete = async (routineId) => {
     const filteredArray = routines.filter(
@@ -67,7 +64,6 @@ const MyRoutines = ({
         },
       });
       const info = await response.json();
-      console.log(info);
     } catch (error) {
       console.error(error);
     }
@@ -83,7 +79,6 @@ const MyRoutines = ({
       },
     });
     const info = await response.json();
-    console.log(info);
     if (info.error) {
       return setError(info.error.message);
     }
@@ -95,7 +90,7 @@ const MyRoutines = ({
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${lsToken}`,
       },
       body: JSON.stringify({
         count,
@@ -103,7 +98,7 @@ const MyRoutines = ({
       }),
     });
     const info = await response.json();
-    console.log(info);
+
     if (info.error) {
       return setError(info.error.message);
     }
@@ -143,9 +138,9 @@ const MyRoutines = ({
         </form>
         <p>{error}</p>
       </div>
-      <hr></hr>
-      <h2 id="my-routines-label">My Routines:</h2>
 
+      <h2 id="my-routines-label">My Routines:</h2>
+      <hr></hr>
       {myRoutinesArr.map((routine) => {
         return routine.isPublic ? (
           <div className="routines-results" key={routine.id}>
@@ -176,7 +171,7 @@ const MyRoutines = ({
               routine.activities.map((activity) => {
                 return (
                   <div className="activities-results" key={activity.id}>
-                    <h4 className="activities">
+                    <h4 id="activity-label" className="activities">
                       Activity Name: {activity.name}
                     </h4>
                     <label className="activities">Count</label>

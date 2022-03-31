@@ -72,7 +72,9 @@ body > div {
   align-items: center;
   margin-bottom: 20px;
 }
-
+button.input-create-routine {
+  margin: auto;
+}
 .input-create-routine {
   display: flex;
   flex-direction: column;
@@ -81,12 +83,18 @@ body > div {
   margin: 5px;
   text-align: center;
 }
-
+input.activities {
+  width: 50px;
+}
 #my-routines-label {
   text-align: center;
   margin-top: 20px;
+  margin-bottom: 20px;
 }
 
+#activity-label {
+  color: rgb(83, 83, 83);
+}
 .my-routines {
   display: flex;
   flex-direction: column;
@@ -102,8 +110,6 @@ body > div {
   flex-direction: column;
   justify-items: center;
   align-content: center;
-  padding-top: 50px;
-  padding-bottom: 50px;
 }
 
 .routine,
@@ -117,6 +123,9 @@ body > div {
   text-align: center;
 }
 
+.activities-results {
+  margin-top: 20px;
+}
 .main-login {
   text-align: center;
   margin-top: 50px;
@@ -141,4 +150,8 @@ body > div {
 
 .routine-link:hover {
   color: rgb(200, 195, 248);
+}
+
+hr {
+  margin: 10px 0px 10px 0px;
 }
