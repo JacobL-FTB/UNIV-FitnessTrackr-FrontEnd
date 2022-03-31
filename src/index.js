@@ -47,21 +47,20 @@ const Main = () => {
       throw error;
     }
   };
-  // console.log(userData);
 
   async function fetchRoutines() {
     const response = await fetch(
       "http://fitnesstrac-kr.herokuapp.com/api/routines"
     );
     const info = await response.json();
-    console.log(info);
+
     setRoutines(info);
   }
 
   const fetchActivities = async () => {
     const resp = await fetch(`${BASE_URL}/activities`);
     const info = await resp.json();
-    // console.log(info);
+
     if (resp.error) {
       throw new Error(resp.error);
     }

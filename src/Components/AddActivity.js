@@ -2,8 +2,6 @@ import { useHistory } from "react-router-dom";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 
-import Routines from "./Routines";
-
 const API_ROUTINES = "https://fitnesstrac-kr.herokuapp.com/api/routines";
 const API_ROUTINEACTIVITES =
   '"https://fitnesstrac-kr.herokuapp.com/api/routine_activities";';
@@ -59,25 +57,6 @@ const AddActivity = ({
     history.push("/my-routines");
   };
 
-  const handleClick = async (e) => {
-    try {
-      const response = await fetch(
-        `${API_ROUTINEACTIVITES}/${routineActivityId}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      const info = await response.json();
-      console.log(info);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   return (
     <>
       <form className="new-post" onSubmit={handleSubmit}>
@@ -98,7 +77,6 @@ const AddActivity = ({
           >
             <option value="any">Any</option>
             {activities.map((activity) => {
-              // console.log(activity.id);
               return (
                 <>
                   <option key={activity.id} value={activity.name}>
@@ -108,21 +86,6 @@ const AddActivity = ({
               );
             })}
           </select>
-          {/* <select
-          value={activityId}
-          onChange={(event) => {
-            setActivityId(event.target.value);
-            console.log(event.target.value);
-          }}
-        >
-          {activities.map((activity) => {
-            return (
-              <>
-                <option key={activity.id} value={activity.id}></option>
-              </>
-            );
-          })}
-        </select> */}
         </fieldset>
         <input
           className="input-posts"
@@ -145,31 +108,6 @@ const AddActivity = ({
 
         <button type="submit">Update Routine</button>
       </form>
-      {/* <h1>Remove Activity From Routine</h1>
-      <div>
-        {routine[0].activities &&
-          routine[0].activities.map((activity) => {
-            console.log(activity.routineActivityId);
-            return (
-              <div key={activity.id}>
-                <h4>Activity: {activity.name}</h4>
-                <h4>Count:{activity.count}</h4>
-                <h4>Duration:{activity.duration}</h4>
-                <h4>id {activity.id}</h4>
-                <button
-                  value={activity.routineActivityId}
-                  onClick={(e) => {
-                    setRoutineActivityId(e.target.value);
-                    handleClick();
-                  }}
-                  type="submit"
-                >
-                  Delete Activity
-                </button>
-              </div>
-            );
-          })}
-      </div> */}
     </>
   );
 };
