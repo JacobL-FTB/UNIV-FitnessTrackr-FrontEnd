@@ -213,6 +213,11 @@ const MyRoutines = ({
                     >
                       Update Count and Duration
                     </button>
+                    {/* <Link
+                      to={`/routine_activites/${activity.routineActivityId}`}
+                    >
+                      Update Activity
+                    </Link> */}
                   </div>
                 );
               })}

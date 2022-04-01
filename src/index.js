@@ -10,6 +10,7 @@ import {
   Login_Register,
   AddActivity,
   EditRoutine,
+  EditActivity,
 } from "./Components/index";
 
 const API_USER = "http://fitnesstrac-kr.herokuapp.com/api/users/me";
@@ -185,6 +186,22 @@ const Main = () => {
         </Route>
         <Route exact path="/routines/:routineId">
           <EditRoutine
+            routines={routines}
+            name={name}
+            goal={goal}
+            setName={setName}
+            setGoal={setGoal}
+            token={token}
+            error={error}
+            setError={setError}
+            fetchRoutines={fetchRoutines}
+            activities={activities}
+            setActivities={setActivities}
+            setRoutines={setRoutines}
+          />
+        </Route>
+        <Route path="/routine_activites/:routineActivityId">
+          <EditActivity
             routines={routines}
             name={name}
             goal={goal}
