@@ -1,5 +1,5 @@
 
-const ActivitiesRoutines = ({activitiesRoutines, setActivitiesRoutines, setError, error}) => {
+const ActivityRoutines = ({activitiesRoutines, setActivitiesRoutines, setError, error}) => {
 
 
 const fetchActivitiesRoutines = async () => {
@@ -30,4 +30,5 @@ const fetchActivitiesRoutines = async () => {
   ))}
 </div>
   )}
-  export default ActivitiesRoutines;
+
+  export default ActivityRoutines;

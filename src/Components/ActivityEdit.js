@@ -17,7 +17,6 @@ const ActivitiesEdit = ({
           name: name,
           description: description,
         };
-    const [error, setError] = useState("");
     const [activity, setActvity] = useState(origPost);
 
 //edit activity

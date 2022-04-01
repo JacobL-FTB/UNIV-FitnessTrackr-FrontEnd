@@ -117,7 +117,7 @@ const Activities = ({
           </Link>
           <h3>{activity.name}</h3>
           <p>{activity.description}</p>
-          <Link to={`activities/${activity.id}`}><button>Edit</button></Link>
+          <Link to={`activities/${activity.id}`}><button>Edit Activity</button></Link>
           
         </div>
       ))}
