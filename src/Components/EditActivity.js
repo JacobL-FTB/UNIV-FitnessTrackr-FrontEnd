@@ -1,18 +1,15 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
-import { Link } from "react-router-dom";
+
 import { useEffect } from "react";
 
-const API_ROUTINES = "https://fitnesstrac-kr.herokuapp.com/api/routines";
+const API_ROUTINEACTIVITIES =
+  "https://fitnesstrac-kr.herokuapp.com/api/routine_activities";
 
-const EditRoutine = ({
+const EditActivity = ({
   routines,
-
-  name,
-  setName,
-  goal,
-  setGoal,
+  userData,
   token,
   error,
   setError,
@@ -21,20 +18,23 @@ const EditRoutine = ({
   const history = useHistory();
   const id = useParams();
 
-  // const [activity, setActivity] = useState("any");
-  // const [count, setCount] = useState("");
-  // const [duration, setDuration] = useState("");
+  const [count, setCount] = useState("");
+  const [duration, setDuration] = useState("");
   console.log(routines);
-  const routine = routines.filter((routine) => id.routineId == routine.id);
-  console.log(routine);
+
+  const myRoutinesArr = routines.filter(
+    (routine) => routine.creatorName === userData.username
+  );
+
+  console.log(activity);
   const [isPublic, setIsPublic] = useState(true);
 
   const createForm = () => {
-    if (name === "") {
-      setName(routine.name);
+    if (count === "") {
+      setCount(routineActivity.count);
     }
-    if (goal === "") {
-      setGoal(routine.goal);
+    if (duration === "") {
+      setDuration(routineActivity.duration);
     }
   };
 
@@ -42,18 +42,20 @@ const EditRoutine = ({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch(`${API_ROUTINES}/${id.routineId}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        name,
-        goal,
-        isPublic,
-      }),
-    });
+    const response = await fetch(
+      `${API_ROUTINEACTIVITIES}/${id.routineActivityId}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          count,
+          duration,
+        }),
+      }
+    );
     const info = await response.json();
     console.log(info);
     if (info.error) {
@@ -64,26 +66,26 @@ const EditRoutine = ({
   };
 
   return (
-    routine && (
-      <div id="create-post" key={routine.id}>
+    routineActivity && (
+      <div id="create-post" key={routineActivity.id}>
         <h3>Edit Routine</h3>
         <form className="new-post" onSubmit={handleSubmit}>
           <input
             className="input-posts"
             type="text"
-            value={name}
-            placeholder={routine[0].name}
+            value={count}
+            placeholder={routineActivity.count}
             onChange={(e) => {
-              setName(e.target.value);
+              setCount(e.target.value);
             }}
           ></input>
           <input
             className="input-posts"
             type="text"
-            value={goal}
-            placeholder={routine[0].goal}
+            value={duration}
+            placeholder={routineActivity.duration}
             onChange={(e) => {
-              setGoal(e.target.value);
+              setDuration(e.target.value);
             }}
           ></input>
           <button type="submit">Update Routine</button>
@@ -95,4 +97,4 @@ const EditRoutine = ({
   );
 };
 
-export default EditRoutine;
+export default EditActivity;

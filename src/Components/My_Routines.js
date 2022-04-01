@@ -1,10 +1,10 @@
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useEffect } from "react";
 
-const API_ROUTINES = 'https://fitnesstrac-kr.herokuapp.com/api/routines';
+const API_ROUTINES = "https://fitnesstrac-kr.herokuapp.com/api/routines";
 const API_ROUTINEACTIVITES =
-  'https://fitnesstrac-kr.herokuapp.com/api/routine_activities';
+  "https://fitnesstrac-kr.herokuapp.com/api/routine_activities";
 
 const MyRoutines = ({
   error,
@@ -20,19 +20,19 @@ const MyRoutines = ({
   setGoal,
   username,
 }) => {
-  const [count, setCount] = useState('');
-  const [duration, setDuration] = useState('');
+  const [count, setCount] = useState("");
+  const [duration, setDuration] = useState("");
   const myRoutinesArr = routines.filter(
     (routine) => routine.creatorName === userData.username
   );
-  const lsToken = localStorage.getItem('token');
+  const lsToken = localStorage.getItem("token");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await fetch(`${API_ROUTINES}`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         Authorization: `Bearer ${lsToken}`,
       },
       body: JSON.stringify({
@@ -45,8 +45,8 @@ const MyRoutines = ({
     if (info.error) {
       return setError(info.error);
     }
-    setName('');
-    setGoal('');
+    setName("");
+    setGoal("");
     fetchRoutines();
   };
 
@@ -57,9 +57,9 @@ const MyRoutines = ({
     setRoutines(filteredArray);
     try {
       const response = await fetch(`${API_ROUTINES}/${routineId}`, {
-        method: 'DELETE',
+        method: "DELETE",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
           Authorization: `Bearer ${lsToken}`,
         },
       });
@@ -72,9 +72,9 @@ const MyRoutines = ({
 
   const handleActivityDelete = async (id) => {
     const response = await fetch(`${API_ROUTINEACTIVITES}/${id}`, {
-      method: 'DELETE',
+      method: "DELETE",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         Authorization: `Bearer ${lsToken}`,
       },
     });
@@ -86,25 +86,65 @@ const MyRoutines = ({
   };
 
   const handleUpdate = async (id) => {
-    const response = await fetch(`${API_ROUTINEACTIVITES}/${id}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${lsToken}`,
-      },
-      body: JSON.stringify({
-        count,
-        duration,
-      }),
-    });
-    const info = await response.json();
+    if (count === "") {
+      const response = await fetch(`${API_ROUTINEACTIVITES}/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${lsToken}`,
+        },
+        body: JSON.stringify({
+          duration,
+        }),
+      });
+      const info = await response.json();
 
-    if (info.error) {
-      return setError(info.error.message);
+      if (info.error) {
+        return setError(info.error.message);
+      }
+      setCount("");
+      setDuration("");
+      fetchRoutines();
+    } else if (duration === "") {
+      const response = await fetch(`${API_ROUTINEACTIVITES}/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${lsToken}`,
+        },
+        body: JSON.stringify({
+          count,
+        }),
+      });
+      const info = await response.json();
+
+      if (info.error) {
+        return setError(info.error.message);
+      }
+      setCount("");
+      setDuration("");
+      fetchRoutines();
+    } else {
+      const response = await fetch(`${API_ROUTINEACTIVITES}/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${lsToken}`,
+        },
+        body: JSON.stringify({
+          count,
+          duration,
+        }),
+      });
+      const info = await response.json();
+
+      if (info.error) {
+        return setError(info.error.message);
+      }
+      setCount("");
+      setDuration("");
+      fetchRoutines();
     }
-    setCount('');
-    setDuration('');
-    fetchRoutines();
   };
 
   return (
@@ -178,7 +218,7 @@ const MyRoutines = ({
                     <input
                       className="activities"
                       onChange={(e) => {
-                        setCount(e.target.value);
+                        setCount(Number(e.target.value));
                       }}
                       placeholder={activity.count}
                       value={count}
@@ -187,7 +227,7 @@ const MyRoutines = ({
                     <input
                       className="activities"
                       onChange={(e) => {
-                        setDuration(e.target.value);
+                        setDuration(Number(e.target.value));
                       }}
                       placeholder={activity.duration}
                       value={duration}
@@ -208,11 +248,17 @@ const MyRoutines = ({
                       value={activity.routineActivityId}
                       onClick={(e) => {
                         const routineActivityId = e.target.value;
+                        console.log(routineActivityId);
                         handleUpdate(routineActivityId);
                       }}
                     >
                       Update Count and Duration
                     </button>
+                    {/* <Link
+                      to={`/routine_activites/${activity.routineActivityId}`}
+                    >
+                      Update Activity
+                    </Link> */}
                   </div>
                 );
               })}

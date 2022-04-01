@@ -7,7 +7,6 @@ const ActivityRoutines = ({ activitiesRoutines, setActivitiesRoutines }) => {
     const resp = await fetch(
       `http://fitnesstrac-kr.herokuapp.com/api/activities/${activitiesRoutines.id}/routines`
     );
-    console.log(resp);
     routines = await resp.json();
     if (resp.error) {
       throw new Error(resp.error);
