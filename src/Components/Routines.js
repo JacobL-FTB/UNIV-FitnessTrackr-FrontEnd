@@ -8,7 +8,8 @@ const Routines = (props) => {
     text = text.toLowerCase();
     if (
       routine.name.toLowerCase().includes(text) ||
-      routine.goal.toLowerCase().includes(text)
+      routine.goal.toLowerCase().includes(text) ||
+      routine.creatorName.toLowerCase().includes(text)
     ) {
       return true;
     } else {
