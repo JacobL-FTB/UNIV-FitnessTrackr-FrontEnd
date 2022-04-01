@@ -1,35 +1,33 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 
-
-const ActivitiesEdit = ({
-    activities,
-    setActivities,
-    fetchActivities,
-    setError, 
-    error
+const ActivityEdit = ({
+  activities,
+  setActivities,
+  fetchActivities,
+  setError,
+  error,
 }) => {
-    const { id } = useParams();
-    const { name, description } = activities.filter(
-          (post) => post._id === id
-        )[0];
-    const origPost = {
-          name: name,
-          description: description,
-        };
-    const [activity, setActvity] = useState(origPost);
+  const { id } = useParams();
+  const { name, description } = activities.filter((post) => post._id === id)[0];
+  const origPost = {
+    name: name,
+    description: description,
+  };
 
-//edit activity
-const handleSubmitEdit = async (e) => {
+  const [activity, setActvity] = useState(origPost);
+
+  //edit activity
+  const handleSubmitEdit = async (e) => {
     e.preventDefault();
     try {
       const response = await fetch(
         `http://fitnesstrac-kr.herokuapp.com/api/activities/${activity.id}`,
         {
-          method: 'PATCH',
+          method: "PATCH",
           body: JSON.stringify({
-            name: activityName,
-            description: activityDescription,
+            name: activity.name,
+            description: activity.description,
           }),
         }
       );
@@ -60,10 +58,10 @@ const handleSubmitEdit = async (e) => {
             }}
           />
           <button>Submit</button>
-         </form>
-          </div>
+        </form>
+      </div>
     </div>
   );
-}
+};
 
-export default ActivitiesEdit;
+export default ActivityEdit;
