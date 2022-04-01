@@ -7,8 +7,8 @@ const Routines = (props) => {
   const filter = (routine, text) => {
     text = text.toLowerCase();
     if (
-      routine.name.toLowerCase().includes(search) ||
-      routine.goal.toLowerCase().includes(search)
+      routine.name.toLowerCase().includes(text) ||
+      routine.goal.toLowerCase().includes(text)
     ) {
       return true;
     } else {
