@@ -16,7 +16,6 @@ const ActivitiesEdit = ({ activities, fetchActivities, token }) => {
   const [newName, setNewName] = useState('');
   const [newDescription, setNewDescription] = useState('');
 
-  //edit activity
   const handleSubmitEdit = async (e) => {
     e.preventDefault();
     try {

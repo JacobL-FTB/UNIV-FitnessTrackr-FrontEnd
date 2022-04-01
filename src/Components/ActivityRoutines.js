@@ -13,8 +13,6 @@ const ActivityRoutines = ({ activitiesRoutines, setActivitiesRoutines }) => {
     }
   };
 
-  console.log(routines);
-
   useEffect(() => {
     fetchActivitiesRoutines();
   }, []);
