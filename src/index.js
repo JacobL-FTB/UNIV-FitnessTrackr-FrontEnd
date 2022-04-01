@@ -10,7 +10,8 @@ import {
   Login_Register,
   AddActivity,
   EditRoutine,
-  EditActivity,
+  ActivityRoutines,
+  ActivityEdit,
 } from "./Components/index";
 
 const API_USER = "http://fitnesstrac-kr.herokuapp.com/api/users/me";
@@ -113,21 +114,21 @@ const Main = () => {
         </Route>
         {/* Edit */}
         <Route exact path="/activities/:activityId">
-          <Activities
+          <ActivityEdit
             activities={activities}
             setActivities={setActivities}
             fetchActivities={fetchActivities}
             userData={userData}
             fetchUser={fetchUser}
+            error={error}
+            setError={setError}
           />
         </Route>
         {/* Activity to Routine  */}
-        <Route exact path="/activities/:activiiyId/routine">
-          <Activities
+        <Route exact path="/activities/:activiiyId/routines">
+          <ActivityRoutines
             activitiesRoutines={activitiesRoutines}
             setActivitiesRoutines={setActivitiesRoutines}
-            setError={setError}
-            error={error}
           />
         </Route>
         <Route exact path="/routines">
@@ -176,6 +177,8 @@ const Main = () => {
             userData={userData}
             routines={routines}
             setRoutines={setRoutines}
+            setToken={setToken}
+            setUserData={setUserData}
             fetchRoutines={fetchRoutines}
             username={username}
             name={name}
@@ -200,7 +203,7 @@ const Main = () => {
             setRoutines={setRoutines}
           />
         </Route>
-        <Route path="/routine_activites/:routineActivityId">
+        {/* <Route path="/routine_activites/:routineActivityId">
           <EditActivity
             routines={routines}
             name={name}
@@ -215,7 +218,7 @@ const Main = () => {
             setActivities={setActivities}
             setRoutines={setRoutines}
           />
-        </Route>
+        </Route> */}
       </div>
     </>
   );

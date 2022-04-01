@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
-
+import { Link } from "react-router-dom";
 import { useEffect } from "react";
 
 const API_ROUTINES = "https://fitnesstrac-kr.herokuapp.com/api/routines";

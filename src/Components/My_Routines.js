@@ -86,25 +86,65 @@ const MyRoutines = ({
   };
 
   const handleUpdate = async (id) => {
-    const response = await fetch(`${API_ROUTINEACTIVITES}/${id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${lsToken}`,
-      },
-      body: JSON.stringify({
-        count,
-        duration,
-      }),
-    });
-    const info = await response.json();
+    if (count === "") {
+      const response = await fetch(`${API_ROUTINEACTIVITES}/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${lsToken}`,
+        },
+        body: JSON.stringify({
+          duration,
+        }),
+      });
+      const info = await response.json();
 
-    if (info.error) {
-      return setError(info.error.message);
+      if (info.error) {
+        return setError(info.error.message);
+      }
+      setCount("");
+      setDuration("");
+      fetchRoutines();
+    } else if (duration === "") {
+      const response = await fetch(`${API_ROUTINEACTIVITES}/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${lsToken}`,
+        },
+        body: JSON.stringify({
+          count,
+        }),
+      });
+      const info = await response.json();
+
+      if (info.error) {
+        return setError(info.error.message);
+      }
+      setCount("");
+      setDuration("");
+      fetchRoutines();
+    } else {
+      const response = await fetch(`${API_ROUTINEACTIVITES}/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${lsToken}`,
+        },
+        body: JSON.stringify({
+          count,
+          duration,
+        }),
+      });
+      const info = await response.json();
+
+      if (info.error) {
+        return setError(info.error.message);
+      }
+      setCount("");
+      setDuration("");
+      fetchRoutines();
     }
-    setCount("");
-    setDuration("");
-    fetchRoutines();
   };
 
   return (
@@ -178,7 +218,7 @@ const MyRoutines = ({
                     <input
                       className="activities"
                       onChange={(e) => {
-                        setCount(e.target.value);
+                        setCount(Number(e.target.value));
                       }}
                       placeholder={activity.count}
                       value={count}
@@ -187,7 +227,7 @@ const MyRoutines = ({
                     <input
                       className="activities"
                       onChange={(e) => {
-                        setDuration(e.target.value);
+                        setDuration(Number(e.target.value));
                       }}
                       placeholder={activity.duration}
                       value={duration}
@@ -208,6 +248,7 @@ const MyRoutines = ({
                       value={activity.routineActivityId}
                       onClick={(e) => {
                         const routineActivityId = e.target.value;
+                        console.log(routineActivityId);
                         handleUpdate(routineActivityId);
                       }}
                     >

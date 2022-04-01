@@ -1,33 +1,33 @@
-import { useState } from "react";
-import { useHistory } from "react-router";
-import { Link } from "react-router-dom";
+import { useState } from 'react';
+import { useHistory } from 'react-router';
+import { Link } from 'react-router-dom';
 
-const API_LOGIN = "http://fitnesstrac-kr.herokuapp.com/api/users/login";
-const API_REGISTER = "http://fitnesstrac-kr.herokuapp.com/api/users/register";
+const API_LOGIN = 'http://fitnesstrac-kr.herokuapp.com/api/users/login';
+const API_REGISTER = 'http://fitnesstrac-kr.herokuapp.com/api/users/register';
 
 const Login_Register = ({ setToken, action, error, setError }) => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirm, setConfirm] = useState("");
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirm, setConfirm] = useState('');
 
-  const isLogin = action === "login";
-  const title = isLogin ? "Login" : "Register";
-  const oppositeTitle = isLogin ? "Register" : "Login";
-  const oppositeAction = isLogin ? "register" : "login";
+  const isLogin = action === 'login';
+  const title = isLogin ? 'Login' : 'Register';
+  const oppositeTitle = isLogin ? 'Register' : 'Login';
+  const oppositeAction = isLogin ? 'register' : 'login';
   const actionURL = isLogin ? API_LOGIN : API_REGISTER;
   const history = useHistory();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
+    setError('');
     if (!isLogin && password !== confirm) {
-      setError("Passwords do not match");
+      setError('Passwords do not match');
     } else {
       try {
         const response = await fetch(`${actionURL}`, {
-          method: "POST",
+          method: 'POST',
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify({
             username,
@@ -40,8 +40,8 @@ const Login_Register = ({ setToken, action, error, setError }) => {
           return setError(info.error);
         }
         setToken(info.token);
-        localStorage.setItem("token", info.token);
-        history.push("/");
+        localStorage.setItem('token', info.token);
+        history.push('/');
       } catch (error) {
         throw error;
       }
