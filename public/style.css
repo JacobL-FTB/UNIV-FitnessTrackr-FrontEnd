@@ -11,6 +11,20 @@ body > div {
   flex-direction: column;
 }
 
+.main-head {
+  text-align: center;
+  font-size: 2rem;
+  margin-top: 100px;
+}
+.main-link {
+  text-decoration: none;
+  color: black;
+  font-size: 1.5rem;
+}
+
+.main-link:hover {
+  color: rgb(200, 195, 248);
+}
 .routineView,
 .activities {
   margin: 5px;
