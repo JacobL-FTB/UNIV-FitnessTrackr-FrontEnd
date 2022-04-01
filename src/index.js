@@ -10,7 +10,6 @@ import {
   Login_Register,
   AddActivity,
   EditRoutine,
-  EditActivity,
 } from './Components/index';
 
 const API_USER = 'http://fitnesstrac-kr.herokuapp.com/api/users/me';
@@ -42,8 +41,8 @@ const Main = () => {
       });
       const info = await response.json();
       setUserData(info);
-
-      // setUsername(info.data.username);
+      console.log(info);
+      setUsername(info.username);
     } catch (error) {
       throw error;
     }
@@ -51,7 +50,12 @@ const Main = () => {
 
   async function fetchRoutines() {
     const response = await fetch(
-      'http://fitnesstrac-kr.herokuapp.com/api/routines'
+      'http://fitnesstrac-kr.herokuapp.com/api/routines',
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
     );
     const info = await response.json();
 
@@ -59,7 +63,11 @@ const Main = () => {
   }
 
   const fetchActivities = async () => {
-    const resp = await fetch(`${BASE_URL}/activities`);
+    const resp = await fetch(`${BASE_URL}/activities`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
     const info = await resp.json();
 
     if (resp.error) {
@@ -91,6 +99,7 @@ const Main = () => {
         <Route exact path="/">
           <Home userData={userData} />
         </Route>
+        {/* Activities  */}
         <Route exact path="/activities">
           <Activities
             activities={activities}
@@ -101,7 +110,8 @@ const Main = () => {
             error={error}
           />
         </Route>
-        {/* <Route exact path="/activities/:activityId">
+        {/* Edit */}
+        <Route exact path="/activities/:activityId">
           <Activities
             activities={activities}
             setActivities={setActivities}
@@ -109,12 +119,12 @@ const Main = () => {
             userData={userData}
             fetchUser={fetchUser}
           />
-        </Route> */}
-        <Route exact path="/activities/routineId">
+        </Route>
+        {/* Activity to Routine  */}
+        <Route exact path="/activities/:activiiyId/routine">
           <Activities
             activitiesRoutines={activitiesRoutines}
             setActivitiesRoutines={setActivitiesRoutines}
-            userData={userData}
             setError={setError}
             error={error}
           />
