@@ -8,4 +8,4 @@ export { default as Routines } from "./Routines";
 export { default as Navbar } from "./Navbar";
 export { default as EditRoutine } from "./EditRoutine";
 // export { default as AddActivityToRoutine } from "./AddActivityToRoutine";
-export { default as AddActivity } from "./AddActivity";
+export { default as AddActivity } from './AddActivity';

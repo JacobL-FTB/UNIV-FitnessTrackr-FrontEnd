@@ -1,10 +1,10 @@
-import { useState } from "react";
-import { useParams } from "react-router-dom";
-import { useHistory } from "react-router-dom";
-import { Link } from "react-router-dom";
-import { useEffect } from "react";
+import { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 
-const API_ROUTINES = "https://fitnesstrac-kr.herokuapp.com/api/routines";
+const API_ROUTINES = 'https://fitnesstrac-kr.herokuapp.com/api/routines';
 
 const EditRoutine = ({
   routines,
@@ -30,10 +30,10 @@ const EditRoutine = ({
   const [isPublic, setIsPublic] = useState(true);
 
   const createForm = () => {
-    if (name === "") {
+    if (name === '') {
       setName(routine.name);
     }
-    if (goal === "") {
+    if (goal === '') {
       setGoal(routine.goal);
     }
   };
@@ -43,9 +43,9 @@ const EditRoutine = ({
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await fetch(`${API_ROUTINES}/${id.routineId}`, {
-      method: "PATCH",
+      method: 'PATCH',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
@@ -60,7 +60,7 @@ const EditRoutine = ({
       return setError(info.error.message);
     }
     fetchRoutines();
-    history.push("/my-routines");
+    history.push('/my-routines');
   };
 
   return (

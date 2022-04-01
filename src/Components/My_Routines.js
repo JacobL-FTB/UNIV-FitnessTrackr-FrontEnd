@@ -1,10 +1,10 @@
-import { Link } from "react-router-dom";
-import { useState } from "react";
-import { useEffect } from "react";
+import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
-const API_ROUTINES = "https://fitnesstrac-kr.herokuapp.com/api/routines";
+const API_ROUTINES = 'https://fitnesstrac-kr.herokuapp.com/api/routines';
 const API_ROUTINEACTIVITES =
-  "https://fitnesstrac-kr.herokuapp.com/api/routine_activities";
+  'https://fitnesstrac-kr.herokuapp.com/api/routine_activities';
 
 const MyRoutines = ({
   error,
@@ -18,22 +18,22 @@ const MyRoutines = ({
   setName,
   goal,
   setGoal,
+  username,
 }) => {
-  const [count, setCount] = useState("");
-  const [duration, setDuration] = useState("");
+  const [count, setCount] = useState('');
+  const [duration, setDuration] = useState('');
   const myRoutinesArr = routines.filter(
     (routine) => routine.creatorName === userData.username
   );
-  console.log(myRoutinesArr);
-  console.log(userData);
+  const lsToken = localStorage.getItem('token');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await fetch(`${API_ROUTINES}`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${lsToken}`,
       },
       body: JSON.stringify({
         name,
@@ -42,16 +42,13 @@ const MyRoutines = ({
       }),
     });
     const info = await response.json();
-    console.log(info);
     if (info.error) {
       return setError(info.error);
     }
-    setName("");
-    setGoal("");
+    setName('');
+    setGoal('');
     fetchRoutines();
   };
-
-  const lsToken = localStorage.getItem("token");
 
   const handleDelete = async (routineId) => {
     const filteredArray = routines.filter(
@@ -60,14 +57,13 @@ const MyRoutines = ({
     setRoutines(filteredArray);
     try {
       const response = await fetch(`${API_ROUTINES}/${routineId}`, {
-        method: "DELETE",
+        method: 'DELETE',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
           Authorization: `Bearer ${lsToken}`,
         },
       });
       const info = await response.json();
-      console.log(info);
     } catch (error) {
       console.error(error);
     }
@@ -76,14 +72,13 @@ const MyRoutines = ({
 
   const handleActivityDelete = async (id) => {
     const response = await fetch(`${API_ROUTINEACTIVITES}/${id}`, {
-      method: "DELETE",
+      method: 'DELETE',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${lsToken}`,
       },
     });
     const info = await response.json();
-    console.log(info);
     if (info.error) {
       return setError(info.error.message);
     }
@@ -92,10 +87,10 @@ const MyRoutines = ({
 
   const handleUpdate = async (id) => {
     const response = await fetch(`${API_ROUTINEACTIVITES}/${id}`, {
-      method: "PATCH",
+      method: 'PATCH',
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${lsToken}`,
       },
       body: JSON.stringify({
         count,
@@ -103,12 +98,12 @@ const MyRoutines = ({
       }),
     });
     const info = await response.json();
-    console.log(info);
+
     if (info.error) {
       return setError(info.error.message);
     }
-    setCount("");
-    setDuration("");
+    setCount('');
+    setDuration('');
     fetchRoutines();
   };
 
@@ -143,9 +138,9 @@ const MyRoutines = ({
         </form>
         <p>{error}</p>
       </div>
-      <hr></hr>
-      <h2 id="my-routines-label">My Routines:</h2>
 
+      <h2 id="my-routines-label">My Routines:</h2>
+      <hr></hr>
       {myRoutinesArr.map((routine) => {
         return routine.isPublic ? (
           <div className="routines-results" key={routine.id}>
@@ -176,7 +171,7 @@ const MyRoutines = ({
               routine.activities.map((activity) => {
                 return (
                   <div className="activities-results" key={activity.id}>
-                    <h4 className="activities">
+                    <h4 id="activity-label" className="activities">
                       Activity Name: {activity.name}
                     </h4>
                     <label className="activities">Count</label>

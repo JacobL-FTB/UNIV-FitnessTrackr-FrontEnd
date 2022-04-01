@@ -11,7 +11,7 @@ const fetchActivitiesRoutines = async () => {
     setActivitiesRoutines(info);
   };
 
-useEffect(() => {
+  useEffect(() => {
     fetchActivitiesRoutines();
   }, []);
 

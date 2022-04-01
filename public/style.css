@@ -1,5 +1,5 @@
 * {
-  font-family: "Nunito", sans-serif;
+  font-family: 'Nunito', sans-serif;
   margin: 0;
 }
 
@@ -12,10 +12,10 @@ body > div {
 }
 
 .routineView,
-.activityForm {
-  background-color: rgb(211, 211, 211);
+.activities {
+  background-color: rgb(219, 219, 219);
   margin: 10px;
-  padding: 10px;
+  padding: 15px;
 }
 .activityForm {
   display: flex;
@@ -72,7 +72,9 @@ body > div {
   align-items: center;
   margin-bottom: 20px;
 }
-
+button.input-create-routine {
+  margin: auto;
+}
 .input-create-routine {
   display: flex;
   flex-direction: column;
@@ -81,12 +83,18 @@ body > div {
   margin: 5px;
   text-align: center;
 }
-
+input.activities {
+  width: 50px;
+}
 #my-routines-label {
   text-align: center;
   margin-top: 20px;
+  margin-bottom: 20px;
 }
 
+#activity-label {
+  color: rgb(83, 83, 83);
+}
 .my-routines {
   display: flex;
   flex-direction: column;
@@ -102,12 +110,9 @@ body > div {
   flex-direction: column;
   justify-items: center;
   align-content: center;
-  padding-top: 50px;
-  padding-bottom: 50px;
 }
 
 .routine,
-.activities,
 .routine-link {
   display: flex;
   flex-direction: column;
@@ -117,6 +122,9 @@ body > div {
   text-align: center;
 }
 
+.activities-results {
+  margin-top: 20px;
+}
 .main-login {
   text-align: center;
   margin-top: 50px;
@@ -141,4 +149,25 @@ body > div {
 
 .routine-link:hover {
   color: rgb(200, 195, 248);
+}
+.CreateActivity {
+  display: flex;
+  flex-flow: nowrap column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 2px solid black;
+  background-color: rgb(219, 219, 219);
+  width: 100%;
+}
+
+.TextInput {
+  width: 50%;
+  border: 1px solid darkgray;
+  padding: 10px;
+  margin: 10px;
+}
+
+hr {
+  margin: 10px 0px 10px 0px;
 }

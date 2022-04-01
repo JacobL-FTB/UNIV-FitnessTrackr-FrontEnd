@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
-const BASE_URL = "https://fitnesstrac-kr.herokuapp.com/api";
+const BASE_URL = 'https://fitnesstrac-kr.herokuapp.com/api';
 
 const Activities = ({
   userData,
@@ -14,22 +13,22 @@ const Activities = ({
 
   const [activityName, setActivityName] = useState([]);
   const [activityDescription, setActivityDescription] = useState([]);
- 
+  const [search, setSearch] = useState('');
 
-  const lsToken = localStorage.getItem("token");
+  const lsToken = localStorage.getItem('token');
 
   //create activity
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
+    setError('');
 
     try {
       const response = await fetch(
-        "http://fitnesstrac-kr.herokuapp.com/api/activities",
+        'http://fitnesstrac-kr.herokuapp.com/api/activities',
         {
-          method: "POST",
+          method: 'POST',
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
             Authorization: `Bearer ${lsToken}`,
           },
           body: JSON.stringify({
@@ -39,28 +38,44 @@ const Activities = ({
         }
       );
       const info = await response.json();
-      setActivityName("");
-      setActivityDescription("");
+      setActivityName('');
+      setActivityDescription('');
       fetchActivities();
     } catch (error) {
       throw error;
     }
   };
 
-  
-
   useEffect(() => {
     fetchActivities();
   }, []);
 
+  const filter = (activity, text) => {
+    text = text.toLowerCase();
+    if (
+      activity.name.toLowerCase().includes(text) ||
+      activity.description.toLowerCase().includes(text)
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const filterActivities = activities.filter((activity) =>
+    filter(activity, search)
+  );
+  const ActivitiesToShow = search.length ? filterActivities : activities;
+
   return (
-    <div>
-      <h1>Activities Page</h1>
+    <div className="ActivitiesPage">
       {/* Create Activity  */}
       {userData ? (
         <form className="CreateActivity" onSubmit={handleSubmit}>
+          <h3 className="title">Create Activity:</h3>
           <input
             required
+            className="TextInput"
             type="text"
             value={activityName}
             placeholder="Activity Name"
@@ -71,6 +86,7 @@ const Activities = ({
           ></input>
           <input
             required
+            className="TextInput"
             value={activityDescription}
             type="text"
             placeholder="Description"
@@ -84,7 +100,15 @@ const Activities = ({
       ) : (
         <></>
       )}
-
+      <br />
+      <h1>Activities:</h1>
+      <input
+        type="text"
+        className="TextInput"
+        value={search}
+        placeholder="Search"
+        onChange={(event) => setSearch(event.target.value)}
+      />
       {/* Show Activities  */}
       {activities.map((activity) => (
         <div id="activities" key={activity.id}>

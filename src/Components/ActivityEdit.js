@@ -27,7 +27,7 @@ const handleSubmitEdit = async (e) => {
       const response = await fetch(
         `http://fitnesstrac-kr.herokuapp.com/api/activities/${activity.id}`,
         {
-          method: "PATCH",
+          method: 'PATCH',
           body: JSON.stringify({
             name: activityName,
             description: activityDescription,
