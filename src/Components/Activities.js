@@ -11,6 +11,7 @@ const Activities = ({
   setError,
   error,
 }) => {
+
   const [activityName, setActivityName] = useState([]);
   const [activityDescription, setActivityDescription] = useState([]);
  
@@ -87,12 +88,13 @@ const Activities = ({
       {/* Show Activities  */}
       {activities.map((activity) => (
         <div id="activities" key={activity.id}>
-          <Link to={`/activities/${activity.id}`}>
+          <Link to={`/activities/${activity.id}/routines`}>
             <h2>{activity.title}</h2>{" "}
           </Link>
           <h3>{activity.name}</h3>
           <p>{activity.description}</p>
-          <button>Edit</button>
+          <Link to={`activities/${activity.id}`}><button>Edit</button></Link>
+          
         </div>
       ))}
     </div>

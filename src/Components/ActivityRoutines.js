@@ -1,5 +1,5 @@
 
-const ActivitiesRoutines = ({}) => {
+const ActivitiesRoutines = ({activitiesRoutines, setActivitiesRoutines, setError, error}) => {
 
 
 const fetchActivitiesRoutines = async () => {
@@ -15,6 +15,9 @@ useEffect(() => {
     fetchActivitiesRoutines();
   }, []);
 
+
+  return (
+      <div>
  {activitiesRoutines.map((activity) => (
     <div id="activities" key={activity.id}>
       <Link to={`/activities/${activity.id}`}>
@@ -24,4 +27,7 @@ useEffect(() => {
       <p>{activity.goal}</p>
       <p>{activity.creatorName}</p>
     </div>
-  ))}}
+  ))}
+</div>
+  )}
+  export default ActivitiesRoutines;
