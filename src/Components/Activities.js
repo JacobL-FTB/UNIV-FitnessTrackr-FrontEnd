@@ -13,6 +13,7 @@ const Activities = ({
 }) => {
   const [activityName, setActivityName] = useState([]);
   const [activityDescription, setActivityDescription] = useState([]);
+  const [search, setSearch] = useState('');
 
   const lsToken = localStorage.getItem('token');
 
@@ -49,14 +50,32 @@ const Activities = ({
     fetchActivities();
   }, []);
 
+  const filter = (activity, text) => {
+    text = text.toLowerCase();
+    if (
+      activity.name.toLowerCase().includes(text) ||
+      activity.description.toLowerCase().includes(text)
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const filterActivities = activities.filter((activity) =>
+    filter(activity, search)
+  );
+  const ActivitiesToShow = search.length ? filterActivities : activities;
+
   return (
-    <div>
-      <h1>Activities Page</h1>
+    <div className="ActivitiesPage">
       {/* Create Activity  */}
       {userData ? (
         <form className="CreateActivity" onSubmit={handleSubmit}>
+          <h3 className="title">Create Activity:</h3>
           <input
             required
+            className="TextInput"
             type="text"
             value={activityName}
             placeholder="Activity Name"
@@ -67,6 +86,7 @@ const Activities = ({
           ></input>
           <input
             required
+            className="TextInput"
             value={activityDescription}
             type="text"
             placeholder="Description"
@@ -80,16 +100,23 @@ const Activities = ({
       ) : (
         <></>
       )}
-
+      <br />
+      <h1>Activities:</h1>
+      <input
+        type="text"
+        className="TextInput"
+        value={search}
+        placeholder="Search"
+        onChange={(event) => setSearch(event.target.value)}
+      />
       {/* Show Activities  */}
-      {activities.map((activity) => (
-        <div id="activities" key={activity.id}>
+      {ActivitiesToShow.map((activity) => (
+        <div className="activities" key={activity.id}>
           <Link to={`/activities/${activity.id}`}>
             <h2>{activity.title}</h2>{' '}
           </Link>
           <h3>{activity.name}</h3>
           <p>{activity.description}</p>
-          <button>Edit</button>
         </div>
       ))}
     </div>
