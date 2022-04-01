@@ -10,6 +10,8 @@ import {
   Login_Register,
   AddActivity,
   EditRoutine,
+  ActivityRoutines,
+  ActivitiesEdit,
 } from './Components/index';
 
 const API_USER = 'http://fitnesstrac-kr.herokuapp.com/api/users/me';
@@ -25,7 +27,7 @@ const Main = () => {
   const [name, setName] = useState('');
   const [goal, setGoal] = useState('');
   const [activities, setActivities] = useState([]);
-  const [activitiesRoutines, setActivitiesRoutines] = useState([]);
+  const [activitiesRoutines, setActivitiesRoutines] = useState({});
 
   const fetchUser = async () => {
     const lsToken = localStorage.getItem('token');
@@ -102,6 +104,7 @@ const Main = () => {
         {/* Activities  */}
         <Route exact path="/activities">
           <Activities
+            setActivitiesRoutines={setActivitiesRoutines}
             activities={activities}
             setActivities={setActivities}
             fetchActivities={fetchActivities}
@@ -114,19 +117,15 @@ const Main = () => {
         <Route exact path="/activities/:activityId">
           <ActivitiesEdit
             activities={activities}
-            setActivities={setActivities}
             fetchActivities={fetchActivities}
-            userData={userData}
-            fetchUser={fetchUser}
-            error={error}
-            setError={setError}
+            token={token}
           />
         </Route>
         {/* Activity to Routine  */}
-        <Route exact path="/activities/:activiiyId/routines">
-          <ActivitiesRoutines
-activitiesRoutines={activitiesRoutines}
-setActivitiesRoutines={setActivitiesRoutines}
+        <Route exact path="/activities/:activityId/routines">
+          <ActivityRoutines
+            activitiesRoutines={activitiesRoutines}
+            setActivitiesRoutines={setActivitiesRoutines}
           />
         </Route>
         <Route exact path="/routines">
