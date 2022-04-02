@@ -1,5 +1,5 @@
 * {
-  font-family: "Nunito", sans-serif;
+  font-family: 'Nunito', sans-serif;
   margin: 0;
 }
 
@@ -11,29 +11,12 @@ body > div {
   flex-direction: column;
 }
 
-.main-head {
-  text-align: center;
-  font-size: 2rem;
-  margin-top: 100px;
-}
-.main-link {
-  text-decoration: none;
-  color: black;
-  font-size: 1.5rem;
-}
-
-.main-link:hover {
-  color: rgb(200, 195, 248);
-}
 .routineView,
 .activities {
-  margin: 5px;
-
-  text-align: center;
-  justify-self: center;
-  align-self: center;
+  background-color: rgb(219, 219, 219);
+  margin: 10px;
+  padding: 15px;
 }
-
 .activityForm {
   display: flex;
   flex-flow: nowrap column;
@@ -127,7 +110,6 @@ input.activities {
   flex-direction: column;
   justify-items: center;
   align-content: center;
-  text-align: center;
 }
 
 .routine,
@@ -188,9 +170,4 @@ input.activities {
 
 hr {
   margin: 10px 0px 10px 0px;
-}
-
-.activities {
-  text-align: center;
-  margin: 10px auto 10px auto;
 }
