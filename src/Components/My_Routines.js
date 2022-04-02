@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { useEffect } from "react";
 
 const API_ROUTINES = "https://fitnesstrac-kr.herokuapp.com/api/routines";
 const API_ROUTINEACTIVITES =
@@ -9,7 +8,6 @@ const API_ROUTINEACTIVITES =
 const MyRoutines = ({
   error,
   setError,
-  token,
   userData,
   routines,
   setRoutines,
@@ -18,10 +16,7 @@ const MyRoutines = ({
   setName,
   goal,
   setGoal,
-  username,
 }) => {
-  const [count, setCount] = useState("");
-  const [duration, setDuration] = useState("");
   const myRoutinesArr = routines.filter(
     (routine) => routine.creatorName === userData.username
   );
@@ -47,6 +42,7 @@ const MyRoutines = ({
     }
     setName("");
     setGoal("");
+    setError("");
     fetchRoutines();
   };
 
@@ -65,7 +61,7 @@ const MyRoutines = ({
       });
       const info = await response.json();
     } catch (error) {
-      console.error(error);
+      console.error(info.error);
     }
     fetchRoutines();
   };
@@ -80,71 +76,9 @@ const MyRoutines = ({
     });
     const info = await response.json();
     if (info.error) {
-      return setError(info.error.message);
+      return setError(info.error);
     }
     fetchRoutines();
-  };
-
-  const handleUpdate = async (id) => {
-    if (count === "") {
-      const response = await fetch(`${API_ROUTINEACTIVITES}/${id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${lsToken}`,
-        },
-        body: JSON.stringify({
-          duration,
-        }),
-      });
-      const info = await response.json();
-
-      if (info.error) {
-        return setError(info.error.message);
-      }
-      setCount("");
-      setDuration("");
-      fetchRoutines();
-    } else if (duration === "") {
-      const response = await fetch(`${API_ROUTINEACTIVITES}/${id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${lsToken}`,
-        },
-        body: JSON.stringify({
-          count,
-        }),
-      });
-      const info = await response.json();
-
-      if (info.error) {
-        return setError(info.error.message);
-      }
-      setCount("");
-      setDuration("");
-      fetchRoutines();
-    } else {
-      const response = await fetch(`${API_ROUTINEACTIVITES}/${id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${lsToken}`,
-        },
-        body: JSON.stringify({
-          count,
-          duration,
-        }),
-      });
-      const info = await response.json();
-
-      if (info.error) {
-        return setError(info.error.message);
-      }
-      setCount("");
-      setDuration("");
-      fetchRoutines();
-    }
   };
 
   return (
@@ -176,7 +110,7 @@ const MyRoutines = ({
             Submit Routine
           </button>
         </form>
-        <p>{error}</p>
+        <p className="input-create-routine">{error}</p>
       </div>
 
       <h2 id="my-routines-label">My Routines:</h2>
@@ -188,6 +122,16 @@ const MyRoutines = ({
 
             <p className="routine">Goal: {routine.goal}</p>
             <h4 className="routine">By: {routine.creatorName}</h4>
+
+            <Link className="routine-link" to={`/routines/${routine.id}`}>
+              Update Routine
+            </Link>
+            <Link
+              className="routine-link"
+              to={`/routines/${routine.id}/activities`}
+            >
+              Add Activity
+            </Link>
             <button
               className="routine"
               value={routine.id}
@@ -198,15 +142,6 @@ const MyRoutines = ({
             >
               Delete Routine
             </button>
-            <Link className="routine-link" to={`/routines/${routine.id}`}>
-              Update Routine
-            </Link>
-            <Link
-              className="routine-link"
-              to={`/routines/${routine.id}/activities`}
-            >
-              Add Activity
-            </Link>
             {routine.activities &&
               routine.activities.map((activity) => {
                 return (
@@ -214,24 +149,14 @@ const MyRoutines = ({
                     <h4 id="activity-label" className="activities">
                       Activity Name: {activity.name}
                     </h4>
-                    <label className="activities">Count</label>
-                    <input
-                      className="activities"
-                      onChange={(e) => {
-                        setCount(Number(e.target.value));
-                      }}
-                      placeholder={activity.count}
-                      value={count}
-                    ></input>
-                    <label className="activities">Duration</label>
-                    <input
-                      className="activities"
-                      onChange={(e) => {
-                        setDuration(Number(e.target.value));
-                      }}
-                      placeholder={activity.duration}
-                      value={duration}
-                    ></input>
+                    <h5>Count: {activity.count}</h5>
+                    <h5>Duration: {activity.duration}</h5>
+                    <Link
+                      className="routine-link"
+                      to={`/routine_activites/${activity.routineActivityId}`}
+                    >
+                      Update Activity
+                    </Link>
                     <button
                       className="activities"
                       value={activity.routineActivityId}
@@ -242,23 +167,6 @@ const MyRoutines = ({
                     >
                       Delete Activity
                     </button>
-                    <button
-                      className="activities"
-                      type="submit"
-                      value={activity.routineActivityId}
-                      onClick={(e) => {
-                        const routineActivityId = e.target.value;
-                        console.log(routineActivityId);
-                        handleUpdate(routineActivityId);
-                      }}
-                    >
-                      Update Count and Duration
-                    </button>
-                    {/* <Link
-                      to={`/routine_activites/${activity.routineActivityId}`}
-                    >
-                      Update Activity
-                    </Link> */}
                   </div>
                 );
               })}

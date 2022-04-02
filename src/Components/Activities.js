@@ -10,8 +10,8 @@ const Activities = ({
   setActivitiesRoutines,
   setError,
 }) => {
-  const [activityName, setActivityName] = useState('');
-  const [activityDescription, setActivityDescription] = useState('');
+  const [activityName, setActivityName] = useState([]);
+  const [activityDescription, setActivityDescription] = useState([]);
   const [search, setSearch] = useState('');
 
   const lsToken = localStorage.getItem('token');
@@ -71,7 +71,7 @@ const Activities = ({
       {/* Create Activity  */}
       {userData ? (
         <form className="CreateActivity" onSubmit={handleSubmit}>
-          <h3 className="title">Create Activity:</h3>
+          <h3 className="title">Create Activity</h3>
           <input
             required
             className="TextInput"
@@ -100,7 +100,7 @@ const Activities = ({
         <></>
       )}
       <br />
-      <h1>Activities:</h1>
+      <h1 className="page-titles">Activities</h1>
       <input
         type="text"
         className="TextInput"
@@ -117,8 +117,8 @@ const Activities = ({
             </button>
           </Link>
           <p>{activity.description}</p>
-          <Link to={`activities/${activity.id}`}>
-            <button id="activityedit">Edit</button>
+          <Link id="activityedit" to={`activities/${activity.id}`}>
+            Edit
           </Link>
         </div>
       ))}

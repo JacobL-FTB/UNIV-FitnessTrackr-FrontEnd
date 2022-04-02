@@ -1,3 +1,4 @@
+/* Mutual Styling  */
 * {
   font-family: 'Nunito', sans-serif;
   margin: 0;
@@ -25,10 +26,59 @@ body > div {
 .main-link:hover {
   color: rgb(200, 195, 248);
 }
+/* Page title  */
 .page-titles {
   text-align: center;
   justify-self: center;
   align-self: center;
+}
+
+/* searchbar */
+.TextInput {
+  width: 50%;
+  border: 1px solid darkgray;
+  padding: 10px;
+  margin-bottom: 0px;
+  margin-left: 3px;
+  margin-top: 5px;
+}
+/* Individual styling /////////////////////////////  */
+/* Navigation Bar  */
+@keyframes animatedBackground {
+  from {
+    background-position: 0 -70px;
+  }
+  to {
+    background-position: 700% -70px;
+  }
+}
+#navbar {
+  color: black;
+  /* justify-content: space-evenly; */
+  background-image: url(/img/Navbar.PNG);
+  background-position: 0px -100px;
+  background-repeat: repeat;
+  background-size: 500px;
+  animation: animatedBackground 30s linear infinite;
+  padding: 10px;
+}
+/* #navbar-title {
+  color: black;
+  justify-content: space-evenly;
+  background-image: url(/img/Navbar.PNG);
+  background-position: 0px -100px;
+  background-repeat: repeat;
+  animation: animatedBackground 30s linear infinite;
+  padding: 10px;
+} */
+#navbar .link {
+  padding: 10px;
+  background-color: rgb(183, 178, 233);
+  border-radius: 10%;
+  margin: 5px;
+  font-size: large;
+  text-decoration: none;
+  color: rgb(0, 0, 0);
 }
 .routineView,
 .activities {
@@ -65,19 +115,7 @@ body > div {
   margin: 5px;
 }
 
-#navbar {
-  background-color: rgb(156, 147, 240);
-  padding: 10px;
-}
-#navbar .link {
-  padding: 10px;
-  background-color: rgb(183, 178, 233);
-  border-radius: 10%;
-  margin: 5px;
-  font-size: large;
-  text-decoration: none;
-  color: rgb(0, 0, 0);
-}
+
 .button {
   text-decoration: none;
   padding: 3px;
@@ -94,7 +132,7 @@ body > div {
 
 #new-routine {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
@@ -171,11 +209,11 @@ input.activities {
 
 .routine-link {
   text-decoration: none;
-  color: black;
+  color: rgb(156, 147, 240);
 }
 
 .routine-link:hover {
-  color: rgb(200, 195, 248);
+  color: black;
 }
 .CreateActivity {
   display: flex;
@@ -186,13 +224,6 @@ input.activities {
   border-bottom: 2px solid black;
   background-color: rgb(219, 219, 219);
   width: 100%;
-}
-
-.TextInput {
-  width: 50%;
-  border: 1px solid darkgray;
-  padding: 10px;
-  margin: 10px;
 }
 
 hr {
