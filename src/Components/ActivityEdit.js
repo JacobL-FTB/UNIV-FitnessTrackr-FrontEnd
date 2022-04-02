@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useHistory } from 'react-router';
 
-const ActivitiesEdit = ({ activities, fetchActivities, token }) => {
+const ActivityEdit = ({ activities, fetchActivities, token }) => {
   const history = useHistory();
   const { activityId } = useParams();
   const activity1 = activities.filter((post) => post.id == activityId);
