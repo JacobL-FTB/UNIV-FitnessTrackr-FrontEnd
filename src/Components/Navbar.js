@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 const Navbar = ({ setToken, userData, setUserData }) => {
   return (
@@ -28,8 +28,8 @@ const Navbar = ({ setToken, userData, setUserData }) => {
           hidden={userData ? false : true}
           onClick={() => {
             setUserData(null);
-            setToken("");
-            localStorage.removeItem("token");
+            setToken('');
+            localStorage.removeItem('token');
           }}
         >
           Logout

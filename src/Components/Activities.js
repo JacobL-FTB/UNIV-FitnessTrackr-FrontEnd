@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
-const BASE_URL = "https://fitnesstrac-kr.herokuapp.com/api";
+const BASE_URL = 'https://fitnesstrac-kr.herokuapp.com/api';
 
 const Activities = ({
   userData,
@@ -12,22 +12,21 @@ const Activities = ({
 }) => {
   const [activityName, setActivityName] = useState([]);
   const [activityDescription, setActivityDescription] = useState([]);
-  const [search, setSearch] = useState("");
-
-  const lsToken = localStorage.getItem("token");
+  const [search, setSearch] = useState('');
+  const lsToken = localStorage.getItem('token');
 
   //create activity
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
+    setError('');
 
     try {
       const response = await fetch(
-        "http://fitnesstrac-kr.herokuapp.com/api/activities",
+        'http://fitnesstrac-kr.herokuapp.com/api/activities',
         {
-          method: "POST",
+          method: 'POST',
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
             Authorization: `Bearer ${lsToken}`,
           },
           body: JSON.stringify({
@@ -37,8 +36,8 @@ const Activities = ({
         }
       );
       const info = await response.json();
-      setActivityName("");
-      setActivityDescription("");
+      setActivityName('');
+      setActivityDescription('');
       fetchActivities();
     } catch (error) {
       throw error;
@@ -101,21 +100,22 @@ const Activities = ({
       )}
       <br />
       <h1 className="page-titles">Activities</h1>
-      <input
-        type="text"
-        className="TextInput"
-        value={search}
-        placeholder="Search"
-        onChange={(event) => setSearch(event.target.value)}
-      />
+      <div id="search">
+        <input
+          type="text"
+          className="TextInput"
+          value={search}
+          placeholder="Search"
+          onChange={(event) => setSearch(event.target.value)}
+        />
+      </div>
       {/* Show Activities  */}
       {ActivitiesToShow.map((activity) => (
         <div className="activities" key={activity.id}>
-          <Link
-            to={`/activities/${activity.id}/routines`}
-            onClick={setActivitiesRoutines(activity)}
-          >
-            {activity.name}
+          <Link to={`/activities/${activity.id}/routines`}>
+            <button onClick={() => setActivitiesRoutines(activity)}>
+              <h2>{activity.name}</h2>
+            </button>
           </Link>
           <p>{activity.description}</p>
           <Link id="activityedit" to={`activities/${activity.id}`}>

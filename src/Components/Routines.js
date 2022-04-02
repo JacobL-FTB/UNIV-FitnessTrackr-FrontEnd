@@ -1,9 +1,9 @@
 import { React, useState } from 'react';
 
 const Routines = (props) => {
-  const { routines, userData, setRoutineData } = props;
+  const { routines } = props;
   const [search, setSearch] = useState('');
-
+  
   const filter = (routine, text) => {
     text = text.toLowerCase();
     if (
@@ -27,15 +27,17 @@ const Routines = (props) => {
       <br />
       <h1 className="page-titles">Routines</h1>
       <div id="routines">
-        <input
-          type="text"
-          className="TextInput"
-          value={search}
-          onChange={(event) => {
-            setSearch(event.target.value);
-          }}
-          placeholder="Search"
-        />
+        <div id="search">
+          <input
+            type="text"
+            className="TextInput"
+            value={search}
+            onChange={(event) => {
+              setSearch(event.target.value);
+            }}
+            placeholder="Search"
+          />
+        </div>
         {routinesToDisplay.map((routine) => {
           return (
             <div key={routine.id} className="routineView">
@@ -56,6 +58,7 @@ const Routines = (props) => {
                   );
                 })}
               </ul>
+              <br />
             </div>
           );
         })}
