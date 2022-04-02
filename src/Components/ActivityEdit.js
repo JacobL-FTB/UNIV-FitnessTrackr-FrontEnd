@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useHistory } from 'react-router';
 
@@ -6,15 +6,15 @@ const ActivityEdit = ({ activities, fetchActivities, token }) => {
   const history = useHistory();
   const { activityId } = useParams();
   const activity1 = activities.filter((post) => post.id == activityId);
-
-  const origPost = {
-    name: activity1[0].name,
-    description: activity1[0].description,
-  };
-  //
-  const [activity, setActvity] = useState(origPost);
+  const [activity, setActivity] = useState({ name: '', description: '' });
   const [newName, setNewName] = useState('');
   const [newDescription, setNewDescription] = useState('');
+
+  useEffect(() => {
+    if (activity1[0]) {
+      setActivity(activity1[0]);
+    }
+  }, []);
 
   const handleSubmitEdit = async (e) => {
     e.preventDefault();
@@ -44,11 +44,13 @@ const ActivityEdit = ({ activities, fetchActivities, token }) => {
 
   return (
     <div>
-      <h1>Edit Activity</h1>
       <div id="edit-form">
-        <form className="activity-form" onSubmit={handleSubmitEdit}>
+        <form className="activityForm" onSubmit={handleSubmitEdit}>
+          <h1>Edit Activity</h1>
           <div id="edit-form-title">Edit Form</div>
           <input
+            required
+            className="TextInput"
             value={newName}
             placeholder={activity.name}
             onChange={(e) => {
@@ -56,12 +58,15 @@ const ActivityEdit = ({ activities, fetchActivities, token }) => {
             }}
           />
           <input
+            required
+            className="TextInput"
             value={newDescription}
             placeholder={activity.description}
             onChange={(e) => {
               setNewDescription(e.target.value);
             }}
           />
+          <br />
           <button>Submit</button>
         </form>
       </div>

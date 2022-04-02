@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const ActivityRoutines = ({ activitiesRoutines }) => {
   const [routines, setRoutines] = useState([]);
-  //
+
   const fetchActivitiesRoutines = async (id) => {
     const resp = await fetch(
       `http://fitnesstrac-kr.herokuapp.com/api/activities/${id}/routines`,

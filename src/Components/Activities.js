@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router';
 
 const BASE_URL = 'https://fitnesstrac-kr.herokuapp.com/api';
-
+//
 const Activities = ({
   userData,
   activities,
