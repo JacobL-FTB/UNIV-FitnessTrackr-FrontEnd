@@ -13,7 +13,6 @@ const Activities = ({
   const [activityName, setActivityName] = useState([]);
   const [activityDescription, setActivityDescription] = useState([]);
   const [search, setSearch] = useState('');
-
   const lsToken = localStorage.getItem('token');
 
   //create activity
@@ -101,13 +100,15 @@ const Activities = ({
       )}
       <br />
       <h1 className="page-titles">Activities</h1>
-      <input
-        type="text"
-        className="TextInput"
-        value={search}
-        placeholder="Search"
-        onChange={(event) => setSearch(event.target.value)}
-      />
+      <div id="search">
+        <input
+          type="text"
+          className="TextInput"
+          value={search}
+          placeholder="Search"
+          onChange={(event) => setSearch(event.target.value)}
+        />
+      </div>
       {/* Show Activities  */}
       {ActivitiesToShow.map((activity) => (
         <div className="activities" key={activity.id}>

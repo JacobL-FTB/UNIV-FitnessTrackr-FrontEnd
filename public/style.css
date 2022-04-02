@@ -17,6 +17,12 @@ body > div {
   font-size: 2rem;
   margin-top: 100px;
 }
+/*
+#main-header {
+  background-color: rgb(140, 28, 187);
+  border-bottom: 1px solid black;
+}
+*/
 .main-link {
   text-decoration: none;
   color: black;
@@ -42,7 +48,7 @@ body > div {
   margin-left: 3px;
   margin-top: 5px;
 }
-/* Individual styling /////////////////////////////  */
+/* Individual styling ////////////////////////////  */
 /* Navigation Bar  */
 @keyframes animatedBackground {
   from {
@@ -60,7 +66,7 @@ body > div {
   background-repeat: repeat;
   background-size: 500px;
   animation: animatedBackground 30s linear infinite;
-  padding: 10px;
+  padding: 15px;
 }
 /* #navbar-title {
   color: black;
@@ -114,7 +120,6 @@ body > div {
   font-style: italic;
   margin: 5px;
 }
-
 
 .button {
   text-decoration: none;
@@ -194,10 +199,12 @@ input.activities {
   text-align: center;
   margin-top: 50px;
 }
-.sign-in {
+.sign-in,
+#search {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   text-align: center;
 }
 
