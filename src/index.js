@@ -43,7 +43,6 @@ const Main = () => {
       });
       const info = await response.json();
       setUserData(info);
-      console.log(info);
       setUsername(info.username);
     } catch (error) {
       throw error;

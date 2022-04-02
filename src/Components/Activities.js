@@ -1,34 +1,25 @@
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
-const BASE_URL = 'https://fitnesstrac-kr.herokuapp.com/api';
-
-const Activities = ({
-  userData,
-  activities,
-  fetchActivities,
-  setError,
-  error,
-}) => {
-
+const Activities = ({ userData, activities, fetchActivities, setError }) => {
   const [activityName, setActivityName] = useState([]);
   const [activityDescription, setActivityDescription] = useState([]);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
 
-  const lsToken = localStorage.getItem('token');
+  const lsToken = localStorage.getItem("token");
 
   //create activity
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
 
     try {
       const response = await fetch(
-        'http://fitnesstrac-kr.herokuapp.com/api/activities',
+        "http://fitnesstrac-kr.herokuapp.com/api/activities",
         {
-          method: 'POST',
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
             Authorization: `Bearer ${lsToken}`,
           },
           body: JSON.stringify({
@@ -38,8 +29,8 @@ const Activities = ({
         }
       );
       const info = await response.json();
-      setActivityName('');
-      setActivityDescription('');
+      setActivityName("");
+      setActivityDescription("");
       fetchActivities();
     } catch (error) {
       throw error;
@@ -117,8 +108,9 @@ const Activities = ({
           </Link>
           <h3>{activity.name}</h3>
           <p>{activity.description}</p>
-          <Link to={`activities/${activity.id}`}><button>Edit</button></Link>
-          
+          <Link to={`activities/${activity.id}`}>
+            <button>Edit</button>
+          </Link>
         </div>
       ))}
     </div>

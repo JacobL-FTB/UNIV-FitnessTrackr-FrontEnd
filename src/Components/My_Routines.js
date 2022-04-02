@@ -9,7 +9,7 @@ const API_ROUTINEACTIVITES =
 const MyRoutines = ({
   error,
   setError,
-  token,
+
   userData,
   routines,
   setRoutines,
@@ -18,7 +18,6 @@ const MyRoutines = ({
   setName,
   goal,
   setGoal,
-  username,
 }) => {
   const [count, setCount] = useState("");
   const [duration, setDuration] = useState("");

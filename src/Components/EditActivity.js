@@ -59,7 +59,7 @@ const EditActivity = ({
     const info = await response.json();
     console.log(info);
     if (info.error) {
-      return setError(info.error.message);
+      return setError(info.error);
     }
     fetchRoutines();
     history.push("/my-routines");

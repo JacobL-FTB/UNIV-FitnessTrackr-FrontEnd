@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const Navbar = ({ setToken, userData, setUserData }) => {
   return (
@@ -18,11 +18,7 @@ const Navbar = ({ setToken, userData, setUserData }) => {
             My Routines
           </Link>
         ) : (
-          <Link
-            className="link"
-            to="/register"
-            hidden={!userData ? false : true}
-          >
+          <Link className="link" to="/register">
             Register
           </Link>
         )}
@@ -31,9 +27,9 @@ const Navbar = ({ setToken, userData, setUserData }) => {
           to="/"
           hidden={userData ? false : true}
           onClick={() => {
-            setToken('');
-            localStorage.removeItem('token');
             setUserData(null);
+            setToken("");
+            localStorage.removeItem("token");
           }}
         >
           Logout
