@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { useHistory } from 'react-router';
+import { useState } from "react";
+import { useParams } from "react-router-dom";
+import { useHistory } from "react-router";
 
 const ActivityEdit = ({ activities, fetchActivities, token }) => {
   const history = useHistory();
@@ -13,8 +13,8 @@ const ActivityEdit = ({ activities, fetchActivities, token }) => {
   };
 
   const [activity, setActvity] = useState(origPost);
-  const [newName, setNewName] = useState('');
-  const [newDescription, setNewDescription] = useState('');
+  const [newName, setNewName] = useState("");
+  const [newDescription, setNewDescription] = useState("");
 
   const handleSubmitEdit = async (e) => {
     e.preventDefault();
@@ -22,9 +22,9 @@ const ActivityEdit = ({ activities, fetchActivities, token }) => {
       const response = await fetch(
         `http://fitnesstrac-kr.herokuapp.com/api/activities/${activity1[0].id}`,
         {
-          method: 'PATCH',
+          method: "PATCH",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
@@ -36,7 +36,7 @@ const ActivityEdit = ({ activities, fetchActivities, token }) => {
       const data = await response.json();
       console.log(data);
       fetchActivities();
-      history.push('/activities');
+      history.push("/activities");
     } catch (error) {
       throw error;
     }
