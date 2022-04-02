@@ -110,7 +110,7 @@ const Activities = ({
       />
       {/* Show Activities  */}
       {ActivitiesToShow.map((activity) => (
-        <div id="activities" key={activity.id}>
+        <div class="activities" key={activity.id}>
           <Link to={`/activities/${activity.id}/routines`}>
             <button onClick={setActivitiesRoutines(activity)}>
               <h2>{activity.name}</h2>
@@ -118,7 +118,7 @@ const Activities = ({
           </Link>
           <p>{activity.description}</p>
           <Link to={`activities/${activity.id}`}>
-            <button>Edit</button>
+            <button id="activityedit">Edit</button>
           </Link>
         </div>
       ))}
