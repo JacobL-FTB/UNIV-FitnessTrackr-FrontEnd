@@ -10,8 +10,8 @@ const Activities = ({
   setActivitiesRoutines,
   setError,
 }) => {
-  const [activityName, setActivityName] = useState([]);
-  const [activityDescription, setActivityDescription] = useState([]);
+  const [activityName, setActivityName] = useState('');
+  const [activityDescription, setActivityDescription] = useState('');
   const [search, setSearch] = useState('');
 
   const lsToken = localStorage.getItem('token');
@@ -110,9 +110,9 @@ const Activities = ({
       />
       {/* Show Activities  */}
       {ActivitiesToShow.map((activity) => (
-        <div class="activities" key={activity.id}>
+        <div className="activities" key={activity.id}>
           <Link to={`/activities/${activity.id}/routines`}>
-            <button onClick={setActivitiesRoutines(activity)}>
+            <button onClick={() => setActivitiesRoutines(activity)}>
               <h2>{activity.name}</h2>
             </button>
           </Link>

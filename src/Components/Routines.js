@@ -1,7 +1,7 @@
 import { React, useState } from 'react';
 
 const Routines = (props) => {
-  const { routines, userData, setRoutineData } = props;
+  const { routines } = props;
   const [search, setSearch] = useState('');
 
   const filter = (routine, text) => {
@@ -25,7 +25,7 @@ const Routines = (props) => {
   return (
     <div>
       <br />
-      <h1 className="title">Routines:</h1>
+      <h1 className="title">Routines</h1>
       <div id="routines">
         <input
           type="text"
@@ -56,6 +56,7 @@ const Routines = (props) => {
                   );
                 })}
               </ul>
+              <br />
             </div>
           );
         })}
