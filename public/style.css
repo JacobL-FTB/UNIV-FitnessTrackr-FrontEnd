@@ -83,12 +83,12 @@ body > div {
 .routineView,
 .activities {
   margin: 5px;
-
   text-align: center;
   justify-self: center;
   align-self: center;
   border: 1px black solid;
   border-radius: 5px;
+  padding: 5px;
 }
 #activityedit {
   text-align: start;
@@ -158,7 +158,7 @@ input.activities {
 }
 
 #activity-label {
-  color: rgb(83, 83, 83);
+  color: darkgray;
 }
 .my-routines {
   display: flex;
