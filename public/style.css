@@ -11,11 +11,39 @@ body > div {
   flex-direction: column;
 }
 
+.main-head {
+  text-align: center;
+  font-size: 2rem;
+  margin-top: 100px;
+}
+.main-link {
+  text-decoration: none;
+  color: black;
+  font-size: 1.5rem;
+}
+
+.main-link:hover {
+  color: rgb(200, 195, 248);
+}
+.page-titles {
+  text-align: center;
+  justify-self: center;
+  align-self: center;
+}
 .routineView,
 .activities {
-  background-color: rgb(219, 219, 219);
-  margin: 10px;
-  padding: 15px;
+  margin: 5px;
+
+  text-align: center;
+  justify-self: center;
+  align-self: center;
+  border: 1px black solid;
+  border-radius: 5px;
+}
+#activityedit {
+  text-align: start;
+  justify-self: flex-start;
+  align-self: flex-start;
 }
 .activityForm {
   display: flex;
