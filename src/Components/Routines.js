@@ -25,7 +25,7 @@ const Routines = (props) => {
   return (
     <div>
       <br />
-      <h1 className="title">Routines:</h1>
+      <h1 className="page-titles">Routines</h1>
       <div id="routines">
         <input
           type="text"
