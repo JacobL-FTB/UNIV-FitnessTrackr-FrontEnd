@@ -86,7 +86,7 @@ const MyRoutines = ({
       {userData && (
         <div>
           <form className="CreateActivity" onSubmit={handleSubmit}>
-            <h2 className="title">Create New Routine</h2>
+            <h3 className="title">Create New Routine</h3>
             <input
               className="TextInput"
               type="text"
@@ -113,7 +113,7 @@ const MyRoutines = ({
         </div>
       )}
 
-      <h2 id="my-routines-label">My Routines:</h2>
+      <h1 id="my-routines-label">My Routines:</h1>
       <hr></hr>
       {myRoutinesArr.map((routine) => {
         return routine.isPublic ? (
