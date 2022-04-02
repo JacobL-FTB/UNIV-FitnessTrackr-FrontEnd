@@ -69,4 +69,4 @@ const ActivitiesEdit = ({ activities, fetchActivities, token }) => {
   );
 };
 
-export default ActivityEdit;
+export default ActivitiesEdit;

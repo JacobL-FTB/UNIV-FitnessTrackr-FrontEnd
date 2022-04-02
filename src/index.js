@@ -115,7 +115,7 @@ const Main = () => {
         </Route>
         {/* Edit */}
         <Route exact path="/activities/:activityId">
-          <ActivityEdit
+          <ActivitiesEdit
             activities={activities}
             fetchActivities={fetchActivities}
             token={token}

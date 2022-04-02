@@ -1,5 +1,5 @@
 export { default as Activities } from './Activities';
-export { default as ActivitiesEdit } from './ActivityEdit'; //
+export { default as ActivitiesEdit } from './ActivityEdit'; 
 export { default as ActivityRoutines } from './ActivityRoutines';
 export { default as Home } from './Home';
 export { default as My_Routines } from './My_Routines';
