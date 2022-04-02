@@ -100,9 +100,8 @@ const Activities = ({
         <></>
       )}
       <br />
-      <h1 className='page-titles'>Activities</h1>
+      <h1 className="page-titles">Activities</h1>
       <input
-        
         type="text"
         className="TextInput"
         value={search}
@@ -111,15 +110,16 @@ const Activities = ({
       />
       {/* Show Activities  */}
       {ActivitiesToShow.map((activity) => (
-        <div class="activities" key={activity.id}>
-          <Link to={`/activities/${activity.id}/routines`}>
-            <button onClick={setActivitiesRoutines(activity)}>
-              <h2>{activity.name}</h2>
-            </button>
+        <div className="activities" key={activity.id}>
+          <Link
+            to={`/activities/${activity.id}/routines`}
+            onClick={setActivitiesRoutines(activity)}
+          >
+            {activity.name}
           </Link>
           <p>{activity.description}</p>
-          <Link to={`activities/${activity.id}`}>
-            <button id="activityedit">Edit</button>
+          <Link id="activityedit" to={`activities/${activity.id}`}>
+            Edit
           </Link>
         </div>
       ))}

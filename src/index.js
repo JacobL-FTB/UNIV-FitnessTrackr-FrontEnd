@@ -34,19 +34,20 @@ const Main = () => {
     const lsToken = localStorage.getItem("token");
     if (lsToken) {
       setToken(lsToken);
-    }
-    try {
-      const response = await fetch(`${API_USER}`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${lsToken}`,
-        },
-      });
-      const info = await response.json();
-      setUserData(info);
-      setUsername(info.username);
-    } catch (error) {
-      throw error;
+
+      try {
+        const response = await fetch(`${API_USER}`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${lsToken}`,
+          },
+        });
+        const info = await response.json();
+        setUserData(info);
+        setUsername(info.username);
+      } catch (error) {
+        throw error;
+      }
     }
   };
 
