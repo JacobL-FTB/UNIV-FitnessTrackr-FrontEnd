@@ -84,7 +84,7 @@ const MyRoutines = ({
   return (
     <>
       {userData && (
-        <div id="new-routine">
+        <div>
           <form className="CreateActivity" onSubmit={handleSubmit}>
             <h2 className="title">Create New Routine</h2>
             <input
@@ -149,8 +149,10 @@ const MyRoutines = ({
                     <h4 id="activity-label" className="activities">
                       Activity Name: {activity.name}
                     </h4>
-                    <h5>Count: {activity.count}</h5>
-                    <h5>Duration: {activity.duration}</h5>
+                    <h5 className="activities">Count: {activity.count}</h5>
+                    <h5 className="activities">
+                      Duration: {activity.duration}
+                    </h5>
                     <Link
                       className="routine-link"
                       to={`/routine_activites/${activity.routineActivityId}`}
