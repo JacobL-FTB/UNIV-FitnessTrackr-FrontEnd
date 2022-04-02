@@ -162,11 +162,11 @@ input.activities {
 
 .routine-link {
   text-decoration: none;
-  color: black;
+  color: rgb(156, 147, 240);
 }
 
 .routine-link:hover {
-  color: rgb(200, 195, 248);
+  color: black;
 }
 .CreateActivity {
   display: flex;

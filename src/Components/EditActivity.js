@@ -20,21 +20,100 @@ const EditActivity = ({
 
   const [count, setCount] = useState("");
   const [duration, setDuration] = useState("");
-  console.log(routines);
+  const lsToken = localStorage.getItem("token");
 
-  const myRoutinesArr = routines.filter(
-    (routine) => routine.creatorName === userData.username
-  );
+  const handleUpdate = async (id) => {
+    if (count === "") {
+      const response = await fetch(
+        `${API_ROUTINEACTIVITIES}/${id.routineActivityId}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${lsToken}`,
+          },
+          body: JSON.stringify({
+            duration,
+          }),
+        }
+      );
+      const info = await response.json();
+
+      if (info.error) {
+        return setError(info.error.message);
+      }
+      setCount("");
+      setDuration("");
+      fetchRoutines();
+    } else if (duration === "") {
+      const response = await fetch(`${API_ROUTINEACTIVITIES}/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${lsToken}`,
+        },
+        body: JSON.stringify({
+          count,
+        }),
+      });
+      const info = await response.json();
+
+      if (info.error) {
+        return setError(info.error.message);
+      }
+      setCount("");
+      setDuration("");
+      fetchRoutines();
+    } else {
+      const response = await fetch(`${API_ROUTINEACTIVITIES}/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${lsToken}`,
+        },
+        body: JSON.stringify({
+          count,
+          duration,
+        }),
+      });
+      const info = await response.json();
+
+      if (info.error) {
+        return setError(info.error.message);
+      }
+      setCount("");
+      setDuration("");
+      fetchRoutines();
+    }
+  };
+
+  const routineActivity = () => {
+    for (let routine of routines) {
+      for (let i = 0; i < routine.activities.length; i++) {
+        if (routine.activities) {
+          if (routine.activities[i].routineActivityId == id.routineActivityId) {
+            console.log(routine.activities[i]);
+            return routine.activities[i];
+          }
+        }
+      }
+    }
+  };
+
+  const activity = routineActivity();
 
   console.log(activity);
+
+  //   console.log(routineActivity);
+
   const [isPublic, setIsPublic] = useState(true);
 
   const createForm = () => {
     if (count === "") {
-      setCount(routineActivity.count);
+      setCount(activity.count);
     }
     if (duration === "") {
-      setDuration(routineActivity.duration);
+      setDuration(activity.duration);
     }
   };
 
@@ -66,34 +145,42 @@ const EditActivity = ({
   };
 
   return (
-    routineActivity && (
-      <div id="create-post" key={routineActivity.id}>
-        <h3>Edit Routine</h3>
-        <form className="new-post" onSubmit={handleSubmit}>
-          <input
-            className="input-posts"
-            type="text"
-            value={count}
-            placeholder={routineActivity.count}
-            onChange={(e) => {
-              setCount(e.target.value);
-            }}
-          ></input>
-          <input
-            className="input-posts"
-            type="text"
-            value={duration}
-            placeholder={routineActivity.duration}
-            onChange={(e) => {
-              setDuration(e.target.value);
-            }}
-          ></input>
-          <button type="submit">Update Routine</button>
-        </form>
+    <div className="activities-results" key={activity.id}>
+      <h4 id="activity-label" className="activities">
+        Activity Name: {activity.name}
+      </h4>
+      <label className="activities">Count</label>
+      <input
+        className="activities"
+        onChange={(e) => {
+          setCount(Number(e.target.value));
+        }}
+        placeholder={activity.count}
+        value={count}
+      ></input>
+      <label className="activities">Duration</label>
+      <input
+        className="activities"
+        onChange={(e) => {
+          setDuration(Number(e.target.value));
+        }}
+        placeholder={activity.duration}
+        value={duration}
+      ></input>
 
-        <p>{error}</p>
-      </div>
-    )
+      <button
+        className="activities"
+        type="submit"
+        value={activity.routineActivityId}
+        onClick={(e) => {
+          const routineActivityId = e.target.value;
+          console.log(routineActivityId);
+          handleUpdate(routineActivityId);
+        }}
+      >
+        Update Count and Duration
+      </button>
+    </div>
   );
 };
 
