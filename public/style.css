@@ -25,6 +25,11 @@ body > div {
 .main-link:hover {
   color: rgb(200, 195, 248);
 }
+.page-titles {
+  text-align: center;
+  justify-self: center;
+  align-self: center;
+}
 .routineView,
 .activities {
   margin: 5px;
@@ -32,8 +37,14 @@ body > div {
   text-align: center;
   justify-self: center;
   align-self: center;
+  border: 1px black solid;
+  border-radius: 5px;
 }
-
+#activityedit {
+  text-align: start;
+  justify-self: flex-start;
+  align-self: flex-start;
+}
 .activityForm {
   display: flex;
   flex-flow: nowrap column;
