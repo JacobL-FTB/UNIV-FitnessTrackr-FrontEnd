@@ -24,8 +24,9 @@ const Routines = (props) => {
 
   return (
     <div>
-      <br />
-      <h1 className="title">Routines</h1>
+      <div className="page-titles">
+        <h1>Routines</h1>
+      </div>
       <div id="routines">
         <div id="search">
           <input

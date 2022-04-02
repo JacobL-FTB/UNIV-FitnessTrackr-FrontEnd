@@ -87,7 +87,9 @@ const Main = () => {
 
   return (
     <>
-      <h1 id="main-head">Fitness Trackr</h1>
+      <div id="main-head">
+        <h1>Fitness Trackr</h1>
+      </div>
       <div id="navbar-title">
         <div id="links">
           <Navbar

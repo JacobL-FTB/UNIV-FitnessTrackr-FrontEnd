@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router';
 
 const BASE_URL = 'https://fitnesstrac-kr.herokuapp.com/api';
 
@@ -14,6 +15,7 @@ const Activities = ({
   const [activityDescription, setActivityDescription] = useState([]);
   const [search, setSearch] = useState('');
   const lsToken = localStorage.getItem('token');
+  const history = useHistory();
 
   //create activity
   const handleSubmit = async (e) => {
@@ -112,11 +114,14 @@ const Activities = ({
       {/* Show Activities  */}
       {ActivitiesToShow.map((activity) => (
         <div className="activities" key={activity.id}>
-          <Link to={`/activities/${activity.id}/routines`}>
-            <button onClick={() => setActivitiesRoutines(activity)}>
-              <h2>{activity.name}</h2>
-            </button>
-          </Link>
+          <h2
+            onClick={() => {
+              setActivitiesRoutines(activity);
+              history.push(`/activities/${activity.id}/routines`);
+            }}
+          >
+            {activity.name}
+          </h2>
           <p>{activity.description}</p>
           <Link id="activityedit" to={`activities/${activity.id}`}>
             Edit

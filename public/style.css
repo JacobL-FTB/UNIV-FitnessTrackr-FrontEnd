@@ -17,12 +17,7 @@ body > div {
   font-size: 2rem;
   margin-top: 100px;
 }
-/*
-#main-header {
-  background-color: rgb(140, 28, 187);
-  border-bottom: 1px solid black;
-}
-*/
+
 .main-link {
   text-decoration: none;
   color: black;
@@ -41,7 +36,7 @@ body > div {
 
 /* searchbar */
 .TextInput {
-  width: 50%;
+  width: 700px;
   border: 1px solid darkgray;
   padding: 10px;
   margin-bottom: 0px;
@@ -59,6 +54,9 @@ body > div {
   }
 }
 #navbar {
+  display: flex;
+  flex-flow: nowrap row;
+  justify-content: center;
   color: black;
   /* justify-content: space-evenly; */
   background-image: url(/img/Navbar.PNG);
@@ -66,7 +64,7 @@ body > div {
   background-repeat: repeat;
   background-size: 500px;
   animation: animatedBackground 30s linear infinite;
-  padding: 15px;
+  padding: 30px;
 }
 /* #navbar-title {
   color: black;
@@ -88,6 +86,8 @@ body > div {
 }
 .routineView,
 .activities {
+  background-color: rgb(230, 230, 230);
+  padding: 10px;
   margin: 5px;
   text-align: center;
   justify-self: center;
@@ -96,6 +96,8 @@ body > div {
   border-radius: 5px;
 }
 #activityedit {
+  text-decoration: none;
+  font-size: large;
   text-align: start;
   justify-self: flex-start;
   align-self: flex-start;
@@ -145,7 +147,8 @@ body > div {
 button.input-create-routine {
   margin: auto;
 }
-.input-create-routine {
+.input-create-routine,
+#main-head {
   display: flex;
   flex-direction: column;
   justify-self: center;
@@ -230,7 +233,6 @@ input.activities {
   padding: 10px;
   border-bottom: 2px solid black;
   background-color: rgb(219, 219, 219);
-  width: 100%;
 }
 
 hr {
