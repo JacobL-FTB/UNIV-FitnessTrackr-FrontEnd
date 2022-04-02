@@ -1,6 +1,6 @@
-import { BrowserRouter, Route } from "react-router-dom";
-import ReactDOM from "react-dom";
-import React, { useState, useEffect } from "react";
+import { BrowserRouter, Route } from 'react-router-dom';
+import ReactDOM from 'react-dom';
+import React, { useState, useEffect } from 'react';
 import {
   Activities,
   Home,
@@ -12,32 +12,32 @@ import {
   EditRoutine,
   ActivityRoutines,
   ActivityEdit,
-} from "./Components/index";
+} from './Components/index';
 
-const API_USER = "http://fitnesstrac-kr.herokuapp.com/api/users/me";
-const BASE_URL = "https://fitnesstrac-kr.herokuapp.com/api";
+const API_USER = 'http://fitnesstrac-kr.herokuapp.com/api/users/me';
+const BASE_URL = 'https://fitnesstrac-kr.herokuapp.com/api';
 
 const Main = () => {
   const [userData, setUserData] = useState(null);
-  const [token, setToken] = useState("");
+  const [token, setToken] = useState('');
   const [routines, setRoutines] = useState([]);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const [routineData, setRoutineData] = useState({});
-  const [username, setUsername] = useState("");
-  const [name, setName] = useState("");
-  const [goal, setGoal] = useState("");
+  const [username, setUsername] = useState('');
+  const [name, setName] = useState('');
+  const [goal, setGoal] = useState('');
   const [activities, setActivities] = useState([]);
-  const [activitiesRoutines, setActivitiesRoutines] = useState([]);
+  const [activitiesRoutines, setActivitiesRoutines] = useState({});
 
   const fetchUser = async () => {
-    const lsToken = localStorage.getItem("token");
+    const lsToken = localStorage.getItem('token');
     if (lsToken) {
       setToken(lsToken);
     }
     try {
       const response = await fetch(`${API_USER}`, {
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
           Authorization: `Bearer ${lsToken}`,
         },
       });
@@ -52,10 +52,10 @@ const Main = () => {
 
   async function fetchRoutines() {
     const response = await fetch(
-      "http://fitnesstrac-kr.herokuapp.com/api/routines",
+      'http://fitnesstrac-kr.herokuapp.com/api/routines',
       {
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
       }
     );
@@ -67,7 +67,7 @@ const Main = () => {
   const fetchActivities = async () => {
     const resp = await fetch(`${BASE_URL}/activities`, {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     });
     const info = await resp.json();
@@ -104,6 +104,7 @@ const Main = () => {
         {/* Activities  */}
         <Route exact path="/activities">
           <Activities
+            setActivitiesRoutines={setActivitiesRoutines}
             activities={activities}
             setActivities={setActivities}
             fetchActivities={fetchActivities}
@@ -116,16 +117,12 @@ const Main = () => {
         <Route exact path="/activities/:activityId">
           <ActivityEdit
             activities={activities}
-            setActivities={setActivities}
             fetchActivities={fetchActivities}
-            userData={userData}
-            fetchUser={fetchUser}
-            error={error}
-            setError={setError}
+            token={token}
           />
         </Route>
         {/* Activity to Routine  */}
-        <Route exact path="/activities/:activiiyId/routines">
+        <Route exact path="/activities/:activityId/routines">
           <ActivityRoutines
             activitiesRoutines={activitiesRoutines}
             setActivitiesRoutines={setActivitiesRoutines}
@@ -224,7 +221,7 @@ const Main = () => {
   );
 };
 
-const root = document.getElementById("root");
+const root = document.getElementById('root');
 ReactDOM.render(
   <BrowserRouter>
     <Main />

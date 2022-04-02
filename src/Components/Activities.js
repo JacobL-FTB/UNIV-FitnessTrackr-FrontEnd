@@ -7,10 +7,9 @@ const Activities = ({
   userData,
   activities,
   fetchActivities,
+  setActivitiesRoutines,
   setError,
-  error,
 }) => {
-
   const [activityName, setActivityName] = useState([]);
   const [activityDescription, setActivityDescription] = useState([]);
   const [search, setSearch] = useState('');
@@ -110,15 +109,17 @@ const Activities = ({
         onChange={(event) => setSearch(event.target.value)}
       />
       {/* Show Activities  */}
-      {activities.map((activity) => (
+      {ActivitiesToShow.map((activity) => (
         <div id="activities" key={activity.id}>
           <Link to={`/activities/${activity.id}/routines`}>
-            <h2>{activity.title}</h2>{" "}
+            <button onClick={setActivitiesRoutines(activity)}>
+              <h2>{activity.name}</h2>
+            </button>
           </Link>
-          <h3>{activity.name}</h3>
           <p>{activity.description}</p>
-          <Link to={`activities/${activity.id}`}><button>Edit Activity</button></Link>
-          
+          <Link to={`activities/${activity.id}`}>
+            <button>Edit</button>
+          </Link>
         </div>
       ))}
     </div>
