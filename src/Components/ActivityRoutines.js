@@ -1,34 +1,45 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
-const ActivityRoutines = ({ activitiesRoutines, setActivitiesRoutines }) => {
-  console.log(activitiesRoutines);
-  let routines = [];
-  const fetchActivitiesRoutines = async () => {
+const ActivityRoutines = ({ activitiesRoutines }) => {
+  const [routines, setRoutines] = useState([]);
+  //
+  const fetchActivitiesRoutines = async (id) => {
     const resp = await fetch(
-      `http://fitnesstrac-kr.herokuapp.com/api/activities/${activitiesRoutines.id}/routines`
+      `http://fitnesstrac-kr.herokuapp.com/api/activities/${id}/routines`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
     );
-    routines = await resp.json();
+    const info = await resp.json();
+    if (!info.error) {
+      setRoutines(info);
+    }
     if (resp.error) {
       throw new Error(resp.error);
     }
   };
 
-  useEffect(() => {
-    fetchActivitiesRoutines();
-  }, []);
+  useEffect(() => fetchActivitiesRoutines(activitiesRoutines.id), []);
 
   return (
     <div>
-      {routines.map((activity) => (
-        <div id="activities" key={activity.id}>
-          <Link to={`/activities/${activity.id}`}>
-            <h2>{activity.title}</h2>{' '}
-          </Link>
-          <h3>{activity.name}</h3>
-          <p>{activity.goal}</p>
-          <p>{activity.creatorName}</p>
-        </div>
-      ))}
+      {routines[0] ? (
+        routines.map((activity) => (
+          <div className="activities" key={activity.id}>
+            <Link to={`/activities/${activity.id}`}>
+              <h2>{activity.title}</h2>{' '}
+            </Link>
+            <h2>{activity.name}</h2>
+            <p>"{activity.goal}"</p>
+            <p>by: {activity.creatorName}</p>
+          </div>
+        ))
+      ) : (
+        <h2>Error 404: No Routines Found</h2>
+      )}
     </div>
   );
 };
