@@ -1,3 +1,4 @@
+/* Mutual Styling  */
 * {
   font-family: "Nunito", sans-serif;
   margin: 0;
@@ -25,11 +26,24 @@ body > div {
 .main-link:hover {
   color: rgb(200, 195, 248);
 }
+/* Page title  */
 .page-titles {
   text-align: center;
   justify-self: center;
   align-self: center;
 }
+
+/* searchbar */
+.TextInput {
+  width: 50%;
+  border: 1px solid darkgray;
+  padding: 10px;
+  margin-bottom: 0px;
+  margin-left: 3px;
+  margin-top: 5px;
+}
+/* Individual styling /////////////////////////////  */
+
 .routineView,
 .activities {
   margin: 5px;
@@ -190,12 +204,6 @@ input.activities {
   width: 100%;
 }
 
-.TextInput {
-  width: 50%;
-  border: 1px solid darkgray;
-  padding: 10px;
-  margin: 10px;
-}
 
 hr {
   margin: 10px 0px 10px 0px;
