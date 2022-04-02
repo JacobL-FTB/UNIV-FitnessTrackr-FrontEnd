@@ -71,7 +71,7 @@ const Activities = ({
       {/* Create Activity  */}
       {userData ? (
         <form className="CreateActivity" onSubmit={handleSubmit}>
-          <h3 className="title">Create Activity:</h3>
+          <h3 className="title">Create Activity</h3>
           <input
             required
             className="TextInput"
@@ -100,8 +100,9 @@ const Activities = ({
         <></>
       )}
       <br />
-      <h1>Activities:</h1>
+      <h1 className='page-titles'>Activities</h1>
       <input
+        
         type="text"
         className="TextInput"
         value={search}
