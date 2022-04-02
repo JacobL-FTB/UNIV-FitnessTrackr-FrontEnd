@@ -106,7 +106,6 @@ body > div {
   margin: 5px;
 }
 
-
 .button {
   text-decoration: none;
   padding: 3px;
@@ -201,7 +200,7 @@ input.activities {
 
 .routine-link {
   text-decoration: none;
-  color: rgb(156, 147, 240);
+  color: rgb(183, 178, 233);
 }
 
 .routine-link:hover {
