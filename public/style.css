@@ -109,7 +109,7 @@ body > div {
 
 #new-routine {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
@@ -203,7 +203,6 @@ input.activities {
   background-color: rgb(219, 219, 219);
   width: 100%;
 }
-
 
 hr {
   margin: 10px 0px 10px 0px;

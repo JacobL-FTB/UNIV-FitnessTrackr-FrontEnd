@@ -1,14 +1,12 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
-import { Link } from "react-router-dom";
 import { useEffect } from "react";
 
 const API_ROUTINES = "https://fitnesstrac-kr.herokuapp.com/api/routines";
 
 const EditRoutine = ({
   routines,
-
   name,
   setName,
   goal,
@@ -20,14 +18,9 @@ const EditRoutine = ({
 }) => {
   const history = useHistory();
   const id = useParams();
-
-  // const [activity, setActivity] = useState("any");
-  // const [count, setCount] = useState("");
-  // const [duration, setDuration] = useState("");
-  console.log(routines);
-  const routine = routines.filter((routine) => id.routineId == routine.id);
-  console.log(routine);
   const [isPublic, setIsPublic] = useState(true);
+
+  const routine = routines.filter((routine) => id.routineId == routine.id);
 
   const createForm = () => {
     if (name === "") {
@@ -55,11 +48,11 @@ const EditRoutine = ({
       }),
     });
     const info = await response.json();
-    console.log(info);
     if (info.error) {
       return setError(info.error);
     }
     fetchRoutines();
+    setError("");
     history.push("/my-routines");
   };
 
@@ -88,7 +81,6 @@ const EditRoutine = ({
           ></input>
           <button type="submit">Update Routine</button>
         </form>
-
         <p>{error}</p>
       </div>
     )
