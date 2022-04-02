@@ -43,7 +43,33 @@ body > div {
   margin-top: 5px;
 }
 /* Individual styling /////////////////////////////  */
-
+/* Navigation Bar  */
+@keyframes animatedBackground {
+  from {
+    background-position: 0 -70px;
+  }
+  to {
+    background-position: 700% -70px;
+  }
+}
+#navbar {
+  color: black;
+  justify-content: space-evenly;
+  background-image: url(/img/Navbar.PNG);
+  background-position: 0px -100px;
+  background-repeat: repeat;
+  animation: animatedBackground 30s linear infinite;
+  padding: 10px;
+}
+#navbar .link {
+  padding: 10px;
+  background-color: rgb(183, 178, 233);
+  border-radius: 10%;
+  margin: 5px;
+  font-size: large;
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+}
 .routineView,
 .activities {
   margin: 5px;
@@ -80,19 +106,7 @@ body > div {
   margin: 5px;
 }
 
-#navbar {
-  background-color: rgb(156, 147, 240);
-  padding: 10px;
-}
-#navbar .link {
-  padding: 10px;
-  background-color: rgb(183, 178, 233);
-  border-radius: 10%;
-  margin: 5px;
-  font-size: large;
-  text-decoration: none;
-  color: rgb(0, 0, 0);
-}
+
 .button {
   text-decoration: none;
   padding: 3px;
