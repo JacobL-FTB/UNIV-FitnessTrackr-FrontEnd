@@ -1,18 +1,16 @@
-const ActivityRoutines = ({
-  activitiesRoutines,
-  setActivitiesRoutines,
-  setError,
-  error,
-}) => {
+import { useEffect } from 'react';
+
+const ActivityRoutines = ({ activitiesRoutines, setActivitiesRoutines }) => {
+  console.log(activitiesRoutines);
+  let routines = [];
   const fetchActivitiesRoutines = async () => {
     const resp = await fetch(
-      `http://fitnesstrac-kr.herokuapp.com/api/activities/${activity.id}/routines`
+      `http://fitnesstrac-kr.herokuapp.com/api/activities/${activitiesRoutines.id}/routines`
     );
-    const info = await resp.json();
+    routines = await resp.json();
     if (resp.error) {
       throw new Error(resp.error);
     }
-    setActivitiesRoutines(info);
   };
 
   useEffect(() => {
@@ -21,10 +19,10 @@ const ActivityRoutines = ({
 
   return (
     <div>
-      {activitiesRoutines.map((activity) => (
+      {routines.map((activity) => (
         <div id="activities" key={activity.id}>
           <Link to={`/activities/${activity.id}`}>
-            <h2>{activity.title}</h2>{" "}
+            <h2>{activity.title}</h2>{' '}
           </Link>
           <h3>{activity.name}</h3>
           <p>{activity.goal}</p>

@@ -1,37 +1,42 @@
-import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useHistory } from 'react-router';
 
-const ActivityEdit = ({
-  activities,
-  setActivities,
-  fetchActivities,
-  setError,
-  error,
-}) => {
-  const { id } = useParams();
-  const { name, description } = activities.filter((post) => post._id === id)[0];
+const ActivitiesEdit = ({ activities, fetchActivities, token }) => {
+  const history = useHistory();
+  const { activityId } = useParams();
+  const activity1 = activities.filter((post) => post.id == activityId);
+
   const origPost = {
-    name: name,
-    description: description,
+    name: activity1[0].name,
+    description: activity1[0].description,
   };
 
   const [activity, setActvity] = useState(origPost);
+  const [newName, setNewName] = useState('');
+  const [newDescription, setNewDescription] = useState('');
 
-  //edit activity
   const handleSubmitEdit = async (e) => {
     e.preventDefault();
     try {
       const response = await fetch(
-        `http://fitnesstrac-kr.herokuapp.com/api/activities/${activity.id}`,
+        `http://fitnesstrac-kr.herokuapp.com/api/activities/${activity1[0].id}`,
         {
-          method: "PATCH",
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
           body: JSON.stringify({
-            name: activity.name,
-            description: activity.description,
+            name: newName,
+            description: newDescription,
           }),
         }
       );
+      const data = await response.json();
+      console.log(data);
       fetchActivities();
+      history.push('/activities');
     } catch (error) {
       throw error;
     }
@@ -44,17 +49,17 @@ const ActivityEdit = ({
         <form className="activity-form" onSubmit={handleSubmitEdit}>
           <div id="edit-form-title">Edit Form</div>
           <input
-            value={activityName}
-            placeholder="Name"
+            value={newName}
+            placeholder={activity.name}
             onChange={(e) => {
-              setActvity({ ...post, name: e.target.value });
+              setNewName(e.target.value);
             }}
           />
           <input
-            value={activityDescription}
-            placeholder="Description"
+            value={newDescription}
+            placeholder={activity.description}
             onChange={(e) => {
-              setActvity({ ...post, description: e.target.value });
+              setNewDescription(e.target.value);
             }}
           />
           <button>Submit</button>
