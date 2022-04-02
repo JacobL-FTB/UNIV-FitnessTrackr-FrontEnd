@@ -83,35 +83,35 @@ const MyRoutines = ({
 
   return (
     <>
-      {userData ? <h2 id="new-routine-heading">Create New Routine</h2> : <></>}
-      <div id="new-routine">
-        <form onSubmit={handleSubmit}>
-          <input
-            className="input-create-routine"
-            type="text"
-            required
-            value={name}
-            placeholder="Name"
-            onChange={(e) => {
-              setName(e.target.value);
-            }}
-          ></input>
-          <input
-            className="input-create-routine"
-            type="text"
-            required
-            value={goal}
-            placeholder="Goal"
-            onChange={(e) => {
-              setGoal(e.target.value);
-            }}
-          ></input>
-          <button className="input-create-routine" type="submit">
-            Submit Routine
-          </button>
-        </form>
-        <p className="input-create-routine">{error}</p>
-      </div>
+      {userData && (
+        <div id="new-routine">
+          <form className="CreateActivity" onSubmit={handleSubmit}>
+            <h2 className="title">Create New Routine</h2>
+            <input
+              className="TextInput"
+              type="text"
+              required
+              value={name}
+              placeholder="Name"
+              onChange={(e) => {
+                setName(e.target.value);
+              }}
+            ></input>
+            <input
+              className="TextInput"
+              type="text"
+              required
+              value={goal}
+              placeholder="Goal"
+              onChange={(e) => {
+                setGoal(e.target.value);
+              }}
+            ></input>
+            <button type="submit">Submit Routine</button>
+          </form>
+          <p>{error}</p>
+        </div>
+      )}
 
       <h2 id="my-routines-label">My Routines:</h2>
       <hr></hr>

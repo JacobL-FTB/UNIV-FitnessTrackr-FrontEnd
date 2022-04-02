@@ -90,6 +90,7 @@ body > div {
   align-self: center;
   border: 1px black solid;
   border-radius: 5px;
+  padding: 5px;
 }
 #activityedit {
   text-align: start;
@@ -159,7 +160,7 @@ input.activities {
 }
 
 #activity-label {
-  color: rgb(83, 83, 83);
+  color: darkgray;
 }
 .my-routines {
   display: flex;
@@ -212,7 +213,7 @@ input.activities {
 
 .routine-link {
   text-decoration: none;
-  color: rgb(156, 147, 240);
+  color: rgb(183, 178, 233);
 }
 
 .routine-link:hover {
