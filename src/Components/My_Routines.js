@@ -83,37 +83,37 @@ const MyRoutines = ({
 
   return (
     <>
-      {userData ? <h2 id="new-routine-heading">Create New Routine</h2> : <></>}
-      <div id="new-routine">
-        <form onSubmit={handleSubmit}>
-          <input
-            className="input-create-routine"
-            type="text"
-            required
-            value={name}
-            placeholder="Name"
-            onChange={(e) => {
-              setName(e.target.value);
-            }}
-          ></input>
-          <input
-            className="input-create-routine"
-            type="text"
-            required
-            value={goal}
-            placeholder="Goal"
-            onChange={(e) => {
-              setGoal(e.target.value);
-            }}
-          ></input>
-          <button className="input-create-routine" type="submit">
-            Submit Routine
-          </button>
-        </form>
-        <p className="input-create-routine">{error}</p>
-      </div>
+      {userData && (
+        <div>
+          <form className="CreateActivity" onSubmit={handleSubmit}>
+            <h3 className="title">Create New Routine</h3>
+            <input
+              className="TextInput"
+              type="text"
+              required
+              value={name}
+              placeholder="Name"
+              onChange={(e) => {
+                setName(e.target.value);
+              }}
+            ></input>
+            <input
+              className="TextInput"
+              type="text"
+              required
+              value={goal}
+              placeholder="Goal"
+              onChange={(e) => {
+                setGoal(e.target.value);
+              }}
+            ></input>
+            <button type="submit">Submit Routine</button>
+          </form>
+          <p>{error}</p>
+        </div>
+      )}
 
-      <h2 id="my-routines-label">My Routines:</h2>
+      <h1 id="my-routines-label">My Routines:</h1>
       <hr></hr>
       {myRoutinesArr.map((routine) => {
         return routine.isPublic ? (
@@ -149,8 +149,10 @@ const MyRoutines = ({
                     <h4 id="activity-label" className="activities">
                       Activity Name: {activity.name}
                     </h4>
-                    <h5>Count: {activity.count}</h5>
-                    <h5>Duration: {activity.duration}</h5>
+                    <h5 className="activities">Count: {activity.count}</h5>
+                    <h5 className="activities">
+                      Duration: {activity.duration}
+                    </h5>
                     <Link
                       className="routine-link"
                       to={`/routine_activites/${activity.routineActivityId}`}
